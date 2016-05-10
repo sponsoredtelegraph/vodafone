@@ -1,8 +1,8 @@
 (function(){
 function Zoom(args) {
     $.extend(this, {
-        $buttons:   $(".zoom-button"),
-        $info:      $("#zoom-info"),
+        $buttons:   $('.zoom-button'),
+        $info:      $('.zoom-info'),
         scale:      { max: 50, currentShift: 0 },
         $container: args.$container,
         datamap:    args.datamap
@@ -12,15 +12,15 @@ function Zoom(args) {
 }
 
 Zoom.prototype.init = function() {
-    var paths = this.datamap.svg.selectAll("path"),
-        subunits = this.datamap.svg.selectAll(".datamaps-subunit");
+    var paths = this.datamap.svg.selectAll('path'),
+        subunits = this.datamap.svg.selectAll('.datamaps-subunit');
 
     // preserve stroke thickness
-    paths.style("vector-effect", "non-scaling-stroke");
+    paths.style('vector-effect', 'non-scaling-stroke');
 
     // disable click on drag end
     subunits.call(
-        d3.behavior.drag().on("dragend", function() {
+        d3.behavior.drag().on('dragend', function() {
             d3.event.sourceEvent.stopPropagation();
         })
     );
@@ -33,15 +33,15 @@ Zoom.prototype.init = function() {
 };
 
 Zoom.prototype.listen = function() {
-    this.$buttons.off("click").on("click", this._handleClick.bind(this));
+    this.$buttons.off('click').on('click', this._handleClick.bind(this));
 
     this.datamap.svg
-        .call(this.d3Zoom.on("zoom", this._handleScroll.bind(this)))
-        .on("dblclick.zoom", null); // disable zoom on double-click
+        .call(this.d3Zoom.on('zoom', this._handleScroll.bind(this)))
+        .on('dblclick.zoom', null); // disable zoom on double-click
 };
 
 Zoom.prototype.reset = function() {
-    this._shift("reset");
+    this._shift('reset');
 };
 
 Zoom.prototype._handleScroll = function() {
@@ -55,7 +55,7 @@ Zoom.prototype._handleScroll = function() {
 };
 
 Zoom.prototype._handleClick = function(event) {
-    var direction = $(event.target).data("zoom");
+    var direction = $(event.target).data('zoom');
 
     this._shift(direction);
 };
@@ -74,7 +74,7 @@ Zoom.prototype._shift = function(direction) {
         (center[1] - view.y) / view.k
     ];
 
-    if (direction == "reset") {
+    if (direction == 'reset') {
         view.k = 1;
         this.scrolled = true;
     } else {
@@ -110,8 +110,8 @@ Zoom.prototype._update = function(translate, scale) {
         .translate(translate)
         .scale(scale);
 
-    this.datamap.svg.selectAll("g")
-        .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+    this.datamap.svg.selectAll('g')
+        .attr('transform', 'translate(' + translate + ')scale(' + scale + ')');
 
     this._displayPercentage(scale);
 };
@@ -120,7 +120,7 @@ Zoom.prototype._animate = function(translate, scale) {
     var _this = this,
         d3Zoom = this.d3Zoom;
 
-    d3.transition().duration(350).tween("zoom", function() {
+    d3.transition().duration(350).tween('zoom', function() {
         var iTranslate = d3.interpolate(d3Zoom.translate(), translate),
             iScale = d3.interpolate(d3Zoom.scale(), scale);
 
@@ -134,7 +134,7 @@ Zoom.prototype._displayPercentage = function(scale) {
     var value;
 
     value = Math.round(Math.log(scale) / Math.log(this.scale.max) * 100);
-    this.$info.text(value + "%");
+    this.$info.text(value + '%');
 };
 
 Zoom.prototype._getScalesArray = function() {
@@ -166,7 +166,7 @@ Zoom.prototype._getNextScale = function(direction) {
             shift++;
         }
 
-        if (direction == "out" && shift > 0) {
+        if (direction == 'out' && shift > 0) {
             shift--;
         }
 
@@ -176,7 +176,7 @@ Zoom.prototype._getNextScale = function(direction) {
 
         shift = this.scale.currentShift;
 
-        if (direction == "out") {
+        if (direction == 'out') {
             shift > 0 && shift--;
         } else {
             shift < lastShift && shift++;
@@ -192,33 +192,34 @@ function Datamap() {
     this.$container = $('#container');
     this.instance = new Datamaps({
         scope: 'world',
+        responsive: false, 
 
         geographyConfig: {
-            popupOnHover: true,
+            popupOnHover: false,
             highlightOnHover: false,
-            borderColor: '#B1B8BD',
-            popupTemplate: function(geography, data) { //this function should just return a string
-
-                console.log('geography ', geography);
-                return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
-            }
+            borderColor: '#B1B8BD'
+            // popupTemplate: function(geography, data) { //this function should just return a string
+            //
+            //     console.log('geography ', geography);
+            //     return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
+            // }
         },
 
         bubblesConfig: {
-            borderWidth: 2,
-            borderOpacity: 1,
+            borderWidth: 0,
             borderColor: '#FFFFFF',
             popupOnHover: true,
             radius: null,
             popupTemplate: function(geography, data) {
                 return '<div class="hoverinfo"><strong>' + data.name + '</strong></div>';
             },
-            fillOpacity: 0.75,
+            fillOpacity: 1,
+            fillColor: '#000000',
             animate: true,
             highlightOnHover: true,
-            highlightFillColor: '#FC8D59',
-            highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
-            highlightBorderWidth: 2,
+            highlightFillColor: '#FFFFFF',
+            highlightBorderColor: '#FFFFFF',
+            highlightBorderWidth: 1,
             highlightBorderOpacity: 1,
             highlightFillOpacity: 0.85,
             exitDelay: 100,
@@ -278,6 +279,7 @@ function Datamap() {
             'MNE': '#BB190D',
             'kosovo': '#BB190D',
             'GRL': '#BB190D',
+            'black' : '#000000',
             defaultFill: '#D0D0D0'
         },
 
@@ -348,51 +350,68 @@ Datamap.prototype._handleMapReady = function(datamap) {
     });
 };
 
+var redMap = new Datamap(),
+    bubblesArr = [];
 
 
-    var bombs = [{
-        name: 'Joe 4',
-        radius: 25,
-        yeild: 400,
-        country: 'USSR',
-        fillKey: 'RUS',
-        significance: 'First fusion weapon test by the USSR (not "staged")',
-        date: '1953-08-12',
-        latitude: 50.07,
-        longitude: 78.43
-    },{
-        name: 'RDS-37',
-        radius: 40,
-        yeild: 1600,
-        country: 'USSR',
-        fillKey: 'RUS',
-        significance: 'First "staged" thermonuclear weapon test by the USSR (deployable)',
-        date: '1955-11-22',
-        latitude: 50.07,
-        longitude: 78.43
+    function getBubbleData() {
+        $.getJSON('scripts/dataMock.json', function(data) {
+            bubblesArr.push(data);
+            console.log(bubblesArr);
 
-    },{
-        name: 'Tsar Bomba',
-        radius: 75,
-        yeild: 50000,
-        country: 'USSR',
-        fillKey: 'RUS',
-        significance: 'Largest thermonuclear weapon ever tested?scaled down from its initial 100 Mt design by 50%',
-        date: '1961-10-31',
-        latitude: 73.482,
-        longitude: 54.5854
+            return bubblesArr;
+        });
     }
+
+    getBubbleData();
+
+    console.log('the bubble: ', getBubbleData() );
+
+
+    var hardcodedData = [
+        {
+            name: 'Vodafone in the UK',
+            radius: 2,
+            centered: 'GBR',
+            country: 'GBR',
+            fillKey: 'black'
+        },
+        {
+            name: 'The rain in Spain stays mainly on the Plane',
+            radius: 2,
+            centered: 'ESP',
+            country: 'ESP',
+            fillKey: 'black'
+        },
+        {
+            name: 'Sprechen sie Deutch?',
+            radius: 2,
+            centered: 'DEU',
+            country: 'DEU',
+            fillKey: 'black'
+        },
+        {
+            name: 'Parlez vous Francais?',
+            radius: 2,
+            centered: 'FRA',
+            country: 'FRA',
+            fillKey: 'black'
+        }
     ];
 
-var redMap = new Datamap();
+    //TODO center if no coordinates
 
-    redMap.bubbles(bombs, {
-        popupTemplate:function (geography, data) {
-            return ['<div class="hoverinfo"><strong>' +  data.name + '</strong>',
-                '<br/>Payload: ' +  data.yeild + ' kilotons',
-                '<br/>Country: ' +  data.country + '',
-                '<br/>Date: ' +  data.date + '',
-                '</div>'].join('');
+    redMap.instance.bubbles(hardcodedData, {
+        popupTemplate: function(geo, data) {
+            return '<div class="hoverinfo main-info">' + data.name + '</div>'
         }
-    })
+    }
+    );
+
+    window.addEventListener('resize', function() {
+
+        console.log('resize ', redMap.instance.resize);
+        redMap.instance.resize();
+    });
+
 })();

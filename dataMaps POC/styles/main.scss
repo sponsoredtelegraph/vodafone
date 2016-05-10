@@ -1,0 +1,54 @@
+@import "libs/bourbon";
+@import "libs/neat";
+
+body {
+    font-family: arial;
+    margin: 0px;
+}
+
+#container {
+    margin-bottom: 5px;
+    overflow: hidden;
+    background: #B1B8BD;
+}
+
+.controls {
+    position: absolute;
+    background: black;
+    padding: 5px 10px;
+    right: 30px;
+    bottom: 30px;
+    border-radius: 4px;
+
+    .zoom-button {
+        width: 20px;
+        height: 20px;
+        border: none;
+        background: #333333;
+        font-size: 14px;
+        color: #B5B5B5;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+
+    .zoom-info {
+        color: #FFF;
+        font-size: 10px;
+        display: inline-block;
+        padding: 15px;
+        line-height: 1;
+    }
+}
+
+.main-info {
+    border-radius: 50% !important;
+    padding: 30px !important;
+    width: 100px;
+    height: 100px;
+    box-shadow: none !important;
+}
+
+.datamaps-hoverover {
+    display: block !important;
+}
+
