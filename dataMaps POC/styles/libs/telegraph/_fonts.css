@@ -1,0 +1,77 @@
+@font-face{
+	font-family:"Austin News Deck Semibold";
+	src:url("/fonts/Austin News Deck Web-Semibold.woff2") format("woff2"),
+		url("/fonts/Austin News Deck Web-Semibold.woff") format("woff"),
+		url("/fonts/Austin News Deck Web-Semibold.ttf") format("truetype"),
+		url("/fonts/Austin News Deck Web-Semibold.eot"),
+		url("/fonts/Austin News Deck Web-Semibold.svg") format("svg"),
+		url("/fonts/Austin News Deck Web-Semibold.eot?#iefix") format("embedded-opentype");
+	font-weight:normal;
+	font-style:normal
+}
+@font-face{
+	font-family:"Austin News Deck Medium";
+	src:url("/fonts/Austin News Deck Web-Medium.woff2") format("woff2"),
+		url("/fonts/Austin News Deck Web-Medium.woff") format("woff"),
+		url("/fonts/Austin News Deck Web-Medium.ttf") format("truetype"),
+		url("/fonts/Austin News Deck Web-Medium.eot"),
+		url("/fonts/Austin News Deck Web-Medium.svg") format("svg"),
+		url("/fonts/Austin News Deck Web-Medium.eot?#iefix") format("embedded-opentype");
+	font-weight:normal;
+	font-style:normal
+}
+@font-face{
+	font-family:"Austin News Deck Roman";
+	src:url("/fonts/Austin News Deck Web-Roman.woff2") format("woff2"),
+		url("/fonts/Austin News Deck Web-Roman.woff") format("woff"),
+		url("/fonts/Austin News Deck Web-Roman.ttf") format("truetype"),
+		url("/fonts/Austin News Deck Web-Roman.eot"),
+		url("/fonts/Austin News Deck Web-Roman.svg") format("svg"),
+		url("/fonts/Austin News Deck Web-Roman.eot?#iefix") format("embedded-opentype");
+	font-weight:normal;
+	font-style:normal
+}
+@font-face{
+	font-family:"Austin News Text Semibold";
+	src:url("/fonts/Austin News Text Web-Semibold.woff2") format("woff2"),
+		url("/fonts/Austin News Text Web-Semibold.woff") format("woff"),
+		url("/fonts/Austin News Text Web-Semibold.ttf") format("truetype"),
+		url("/fonts/Austin News Text Web-Semibold.eot"),
+		url("/fonts/Austin News Text Web-Semibold.svg") format("svg"),
+		url("/fonts/Austin News Text Web-Semibold.eot?#iefix") format("embedded-opentype");
+	font-weight:normal;
+	font-style:normal
+}
+@font-face{
+	font-family:"Austin News Text Roman";
+	src:url("/fonts/Austin News Text Web-Roman.woff2") format("woff2"),
+		url("/fonts/Austin News Text Web-Roman.woff") format("woff"),
+		url("/fonts/Austin News Text Web-Roman.ttf") format("truetype"),
+		url("/fonts/Austin News Text Web-Roman.eot"),
+		url("/fonts/Austin News Text Web-Roman.svg") format("svg"),
+		url("/fonts/Austin News Text Web-Roman.eot?#iefix") format("embedded-opentype");
+	font-weight:normal;
+	font-style:normal
+}
+@font-face{
+	font-family:"Telesans Text Bold";
+	src:url("/fonts/Telesans Text Web-Bold.woff2") format("woff2"),
+		url("/fonts/Telesans Text Web-Bold.woff") format("woff"),
+		url("/fonts/Telesans Text Web-Bold.ttf") format("truetype"),
+		url("/fonts/Telesans Text Web-Bold.eot"),
+		url("/fonts/Telesans Text Web-Bold.svg") format("svg"),
+		url("/fonts/Telesans Text Web-Bold.eot?#iefix") format("embedded-opentype");
+	font-weight:normal;
+	font-style:normal
+}
+@font-face{
+	font-family:"Telesans Text Regular";
+	src:url("/fonts/Telesans Text Web-Regular.woff2") format("woff2"),
+		url("/fonts/Telesans Text Web-Regular.woff") format("woff"),
+		url("/fonts/Telesans Text Web-Regular.ttf") format("truetype"),
+		url("/fonts/Telesans Text Web-Regular.eot"),
+		url("/fonts/Telesans Text Web-Regular.svg") format("svg"),
+		url("/fonts/Telesans Text Web-Regular.eot?#iefix") format("embedded-opentype");
+	font-weight:normal;
+	font-style:normal
+}

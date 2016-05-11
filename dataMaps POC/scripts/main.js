@@ -1,8 +1,105 @@
 (function(){
+
+var defaults = defaults || {};
+    var defaultOptions = {
+        scope: 'world',
+        responsive: false,
+        aspectRatio: 0.5625,
+        projection: 'equirectangular',
+        dataType: 'json',
+        data: {},
+        done: function() {},
+        fills: {
+            defaultFill: '#ABDDA4'
+        },
+        filters: {},
+        geographyConfig: {
+            dataUrl: null,
+            hideAntarctica: true,
+            hideHawaiiAndAlaska : false,
+            borderWidth: 1,
+            borderOpacity: 1,
+            borderColor: '#FDFDFD',
+            popupTemplate: function(geography, data) {
+                return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
+            },
+            popupOnHover: true,
+            highlightOnHover: true,
+            highlightFillColor: '#FC8D59',
+            highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
+            highlightBorderWidth: 2,
+            highlightBorderOpacity: 1
+        },
+        projectionConfig: {
+            rotation: [97, 0]
+        },
+        bubblesConfig: {
+            borderWidth: 2,
+            borderOpacity: 1,
+            borderColor: '#FFFFFF',
+            popupOnHover: true,
+            radius: null,
+            popupTemplate: function(geography, data) {
+                return '<div class="hoverinfo"><strong>' + data.name + '</strong></div>';
+            },
+            fillOpacity: 0.75,
+            animate: true,
+            highlightOnHover: true,
+            highlightFillColor: '#FC8D59',
+            highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
+            highlightBorderWidth: 2,
+            highlightBorderOpacity: 1,
+            highlightFillOpacity: 0.85,
+            exitDelay: 100,
+            key: JSON.stringify
+        },
+        arcConfig: {
+            strokeColor: '#DD1C77',
+            strokeWidth: 1,
+            arcSharpness: 1,
+            animationSpeed: 600,
+            popupOnHover: false,
+            popupTemplate: function(geography, data) {
+                // Case with latitude and longitude
+                if ( ( data.origin && data.destination ) && data.origin.latitude && data.origin.longitude && data.destination.latitude && data.destination.longitude ) {
+                    return '<div class="hoverinfo"><strong>Arc</strong><br>Origin: ' + JSON.stringify(data.origin) + '<br>Destination: ' + JSON.stringify(data.destination) + '</div>';
+                }
+                // Case with only country name
+                else if ( data.origin && data.destination ) {
+                    return '<div class="hoverinfo"><strong>Arc</strong><br>' + data.origin + ' -> ' + data.destination + '</div>';
+                }
+                // Missing information
+                else {
+                    return '';
+                }
+            }
+        }
+    };
+
+    defaults = {
+        selectors: {
+            zoom: {
+                button: '.zoom-button',
+                info: '.zoom-info'
+            },
+
+            subunit: '.datamaps-subunit',
+            map: '#main-map'
+        },
+        
+        colors: {
+            red: '#BB190D',
+            white: '#FFFFFF',
+            lightGrey: '#D0D0D0',
+            black: '#000000'
+        }
+    };
+
+
 function Zoom(args) {
     $.extend(this, {
-        $buttons:   $('.zoom-button'),
-        $info:      $('.zoom-info'),
+        $buttons:   $(defaults.selectors.zoom.button),
+        $info:      $(defaults.selectors.zoom.info),
         scale:      { max: 50, currentShift: 0 },
         $container: args.$container,
         datamap:    args.datamap
@@ -13,7 +110,7 @@ function Zoom(args) {
 
 Zoom.prototype.init = function() {
     var paths = this.datamap.svg.selectAll('path'),
-        subunits = this.datamap.svg.selectAll('.datamaps-subunit');
+        subunits = this.datamap.svg.selectAll(defaults.selectors.subunit);
 
     // preserve stroke thickness
     paths.style('vector-effect', 'non-scaling-stroke');
@@ -189,10 +286,61 @@ Zoom.prototype._getNextScale = function(direction) {
 };
 
 function Datamap() {
-    this.$container = $('#container');
+
+    console.log('this is', this);
+    this.$container = $(defaults.selectors.map);
     this.instance = new Datamaps({
         scope: 'world',
-        responsive: false, 
+        // addPlugin : function( name, pluginFn ) {
+        //     var self = this;
+        //     if ( typeof Datamap.prototype[name] === "undefined" ) {
+        //         Datamap.prototype[name] = function(data, options, callback, createNewLayer) {
+        //             var layer;
+        //             if ( typeof createNewLayer === "undefined" ) {
+        //                 createNewLayer = false;
+        //             }
+        //
+        //             if ( typeof options === 'function' ) {
+        //                 callback = options;
+        //                 options = undefined;
+        //             }
+        //
+        //             options = defaultOptions;
+        //
+        //             // Add a single layer, reuse the old layer
+        //             if ( !createNewLayer && this.options[name + 'Layer'] ) {
+        //                 layer = this.options[name + 'Layer'];
+        //                 options = options || this.options[name + 'Options'];
+        //             }
+        //             else {
+        //                 layer = this.addLayer(name);
+        //                 this.options[name + 'Layer'] = layer;
+        //                 this.options[name + 'Options'] = options;
+        //             }
+        //
+        //             pluginFn.apply(this, [layer, data, options]);
+        //             if ( callback ) {
+        //                 callback(layer);
+        //             }
+        //         };
+        //     }
+        // },
+
+        responsive: false,
+
+        //set initial map here
+        //TODO positioning relative to window coords
+        setProjection: function(element) {
+            var projection = d3.geo.mercator()
+                .center([-10, 55])
+                // .rotate([4.4, 0])
+                .scale(700)
+                .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            var path = d3.geo.path()
+                .projection(projection);
+
+            return {path: path, projection: projection};
+        },
 
         geographyConfig: {
             popupOnHover: false,
@@ -207,18 +355,18 @@ function Datamap() {
 
         bubblesConfig: {
             borderWidth: 0,
-            borderColor: '#FFFFFF',
+            borderColor: defaults.colors.white,
             popupOnHover: true,
             radius: null,
             popupTemplate: function(geography, data) {
                 return '<div class="hoverinfo"><strong>' + data.name + '</strong></div>';
             },
             fillOpacity: 1,
-            fillColor: '#000000',
+            fillColor: defaults.colors.black,
             animate: true,
             highlightOnHover: true,
-            highlightFillColor: '#FFFFFF',
-            highlightBorderColor: '#FFFFFF',
+            highlightFillColor: defaults.colors.white,
+            highlightBorderColor: defaults.colors.white,
             highlightBorderWidth: 1,
             highlightBorderOpacity: 1,
             highlightFillOpacity: 0.85,
@@ -228,59 +376,59 @@ function Datamap() {
 
         fills: {
 
-            'ALA': '#BB190D',
-            'ALB': '#BB190D',
-            'AND': '#BB190D',
-            'AUT': '#BB190D',
-            'BLR': '#BB190D',
-            'BEL': '#BB190D',
-            'BIH': '#BB190D',
-            'BGR': '#BB190D',
-            'HRV': '#BB190D',
-            'CYP': '#BB190D',
-            'CZE': '#BB190D',
-            'DNK': '#BB190D',
-            'EST': '#BB190D',
-            'FRO': '#BB190D',
-            'FIN': '#BB190D',
-            'FRA': '#BB190D',
-            'DEU': '#BB190D',
-            'GIB': '#BB190D',
-            'GRC': '#BB190D',
-            'HUN': '#BB190D',
-            'ISL': '#BB190D',
-            'IRL': '#BB190D',
-            'ITA': '#BB190D',
-            'LVA': '#BB190D',
-            'LIE': '#BB190D',
-            'LTU': '#BB190D',
-            'LUX': '#BB190D',
-            'MKD': '#BB190D',
-            'MLT': '#BB190D',
-            'MDA': '#BB190D',
-            'MCO': '#BB190D',
-            'NLD': '#BB190D',
-            'NOR': '#BB190D',
-            'POL': '#BB190D',
-            'PRT': '#BB190D',
-            'ROU': '#BB190D',
-            'SMR': '#BB190D',
-            'SRB': '#BB190D',
-            'SVK': '#BB190D',
-            'SVN': '#BB190D',
-            'ESP': '#BB190D',
-            'SWE': '#BB190D',
-            'CHE': '#BB190D',
-            'UKR': '#BB190D',
-            'GBR': '#BB190D',
-            'VAT': '#BB190D',
-            'RSB': '#BB190D',
-            'IMN': '#BB190D',
-            'MNE': '#BB190D',
-            'kosovo': '#BB190D',
-            'GRL': '#BB190D',
-            'black' : '#000000',
-            defaultFill: '#D0D0D0'
+            'ALA': defaults.colors.red,
+            'ALB': defaults.colors.red,
+            'AND': defaults.colors.red,
+            'AUT': defaults.colors.red,
+            'BLR': defaults.colors.red,
+            'BEL': defaults.colors.red,
+            'BIH': defaults.colors.red,
+            'BGR': defaults.colors.red,
+            'HRV': defaults.colors.red,
+            'CYP': defaults.colors.red,
+            'CZE': defaults.colors.red,
+            'DNK': defaults.colors.red,
+            'EST': defaults.colors.red,
+            'FRO': defaults.colors.red,
+            'FIN': defaults.colors.red,
+            'FRA': defaults.colors.red,
+            'DEU': defaults.colors.red,
+            'GIB': defaults.colors.red,
+            'GRC': defaults.colors.red,
+            'HUN': defaults.colors.red,
+            'ISL': defaults.colors.red,
+            'IRL': defaults.colors.red,
+            'ITA': defaults.colors.red,
+            'LVA': defaults.colors.red,
+            'LIE': defaults.colors.red,
+            'LTU': defaults.colors.red,
+            'LUX': defaults.colors.red,
+            'MKD': defaults.colors.red,
+            'MLT': defaults.colors.red,
+            'MDA': defaults.colors.red,
+            'MCO': defaults.colors.red,
+            'NLD': defaults.colors.red,
+            'NOR': defaults.colors.red,
+            'POL': defaults.colors.red,
+            'PRT': defaults.colors.red,
+            'ROU': defaults.colors.red,
+            'SMR': defaults.colors.red,
+            'SRB': defaults.colors.red,
+            'SVK': defaults.colors.red,
+            'SVN': defaults.colors.red,
+            'ESP': defaults.colors.red,
+            'SWE': defaults.colors.red,
+            'CHE': defaults.colors.red,
+            'UKR': defaults.colors.red,
+            'GBR': defaults.colors.red,
+            'VAT': defaults.colors.red,
+            'RSB': defaults.colors.red,
+            'IMN': defaults.colors.red,
+            'MNE': defaults.colors.red,
+            'kosovo': defaults.colors.red,
+            'GRL': defaults.colors.red,
+            'black' : defaults.colors.black,
+            defaultFill: defaults.colors.lightGrey
         },
 
         data: {
@@ -337,6 +485,7 @@ function Datamap() {
             'GRL': {fillKey: 'GRL'}
         },
 
+        // mainMarker: this._handleMainMarkers(),
         element: this.$container.get(0),
         projection: 'mercator',
         done: this._handleMapReady.bind(this)
@@ -370,28 +519,32 @@ var redMap = new Datamap(),
 
     var hardcodedData = [
         {
-            name: 'Vodafone in the UK',
+            name: 'United Kingdom',
+            heading: 'Vodafone in the UK',
             radius: 2,
             centered: 'GBR',
             country: 'GBR',
             fillKey: 'black'
         },
         {
-            name: 'The rain in Spain stays mainly on the Plane',
+            name: 'Spain',
+            heading: 'The rain in Spain stays mainly on the Plane',
             radius: 2,
             centered: 'ESP',
             country: 'ESP',
             fillKey: 'black'
         },
         {
-            name: 'Sprechen sie Deutch?',
+            name: 'Germany',
+            heading: 'Sprechen sie Deutch?',
             radius: 2,
             centered: 'DEU',
             country: 'DEU',
             fillKey: 'black'
         },
         {
-            name: 'Parlez vous Francais?',
+            name: 'France',
+            heading: 'Parlez vous Francais?',
             radius: 2,
             centered: 'FRA',
             country: 'FRA',
@@ -399,14 +552,17 @@ var redMap = new Datamap(),
         }
     ];
 
+
+
     //TODO center if no coordinates
 
     redMap.instance.bubbles(hardcodedData, {
         popupTemplate: function(geo, data) {
-            return '<div class="hoverinfo main-info">' + data.name + '</div>'
+            return '<div class="hoverinfo main-info"> <div class="main-pin"></div>' + data.name + '</div>'
         }
-    }
-    );
+    });
+
+    redMap.instance.mainMarkers(hardcodedData);
 
     window.addEventListener('resize', function() {
 
