@@ -520,41 +520,45 @@ var redMap = new Datamap(),
     var hardcodedData = [
         {
             name: 'United Kingdom',
-            heading: 'Vodafone in the UK',
+            heading: 'Visit Britain`s sandy beaches',
             radius: 2,
+            main: true,
             centered: 'GBR',
             country: 'GBR',
-            fillKey: 'black'
+            fillKey: 'black',
+            href: '#'
         },
         {
             name: 'Spain',
-            heading: 'The rain in Spain stays mainly on the Plane',
+            heading: 'Find the best Cava',
             radius: 2,
+            main: false,
             centered: 'ESP',
             country: 'ESP',
-            fillKey: 'black'
+            fillKey: 'black',
+            href: '#'
         },
         {
             name: 'Germany',
-            heading: 'Sprechen sie Deutch?',
+            heading: 'Break your speed record on the Autobahn',
             radius: 2,
+            main: true,
             centered: 'DEU',
             country: 'DEU',
-            fillKey: 'black'
+            fillKey: 'black',
+            href: '#'
         },
         {
             name: 'France',
-            heading: 'Parlez vous Francais?',
+            heading: 'Have you seen the lavender fields?',
             radius: 2,
+            main: true,
             centered: 'FRA',
             country: 'FRA',
-            fillKey: 'black'
+            fillKey: 'black',
+            href: '#'
         }
     ];
-
-
-
-    //TODO center if no coordinates
 
     redMap.instance.bubbles(hardcodedData, {
         popupTemplate: function(geo, data) {
@@ -563,6 +567,7 @@ var redMap = new Datamap(),
     });
 
     redMap.instance.mainMarkers(hardcodedData);
+    redMap.instance.secondaryMarkers(hardcodedData);
 
     window.addEventListener('resize', function() {
 

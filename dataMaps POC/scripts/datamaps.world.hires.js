@@ -499,36 +499,50 @@
             throw "Datamaps Error - Markers must be an array";
         }
 
-        var mainMarkers = layer.selectAll('circle.datamaps-main-marker').data( data, options.key );
+        var mainMarkers = layer.selectAll('circle.main-marker').data( data, options.key );
         var mainMarkersText = layer.selectAll('.main-marker-text').data( data, options.key );
-        var mainMarkersHeading = layer.selectAll('.marker-heading').data( data, options.key );
-        var mainMarkersLink = layer.selectAll('.datamaps-main-marker-link').data( data, options.key );
+        var mainMarkersHeading = layer.selectAll('.main-marker-heading').data( data, options.key );
+        var mainMarkersLink = layer.selectAll('.main-marker-link').data( data, options.key );
         var mainMarkersPin = layer.selectAll('.main-marker-pin').data( data, options.key );
+
+        console.log('data ', data, options.key);
 
         mainMarkers
             .enter()
             .append('svg:circle')
-            .attr('class', 'datamaps-main-marker')
+            .attr('class', function(datum) {
+                if(datum.main) {
+                    return 'main-marker';
+                } else {
+                    return 'empty-marker';
+                }
+            })
             .attr('cx', function ( datum ) {
-                var latLng;
-                if ( datumHasCoords(datum) ) {
-                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+
+                if(datum.main) {
+                    var latLng;
+                    if ( datumHasCoords(datum) ) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if ( datum.centered ) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if ( latLng ) return latLng[0];
                 }
-                else if ( datum.centered ) {
-                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
-                }
-                if ( latLng ) return latLng[0];
             })
             .attr('cy', function ( datum ) {
-                var latLng;
-                if ( datumHasCoords(datum) ) {
-                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
-                }
-                else if ( datum.centered ) {
-                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
-                }
 
-                if ( latLng ) return latLng[1] + 15;
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+
+                    if (latLng) return latLng[1] + 15;
+                }
             })
             .attr('r', function(datum) {
 
@@ -541,20 +555,16 @@
                 return JSON.stringify(datum);
             })
             .attr('filter', function (datum) {
-                // var filterKey = filterData[ val(datum.filterKey, options.filterKey, datum) ];
-                //
-                // if (filterKey) {
-                //     return filterKey;
-                // }
+                var filterKey = filterData[ val(datum.filterKey, options.filterKey, datum) ];
+
+                if (filterKey) {
+                    return filterKey;
+                }
             })
             .style('fill-opacity', function ( datum ) {
-                // return val(datum.fillOpacity, options.fillOpacity, datum);
                 return 1;
             })
             .style('fill', function ( datum ) {
-                // var fillColor = fillData[ val(datum.fillKey, options.fillKey, datum) ];
-                // return fillColor || fillData.defaultFill;
-
                 return 'rgba(255, 255, 255, .9)';
             });
 
@@ -586,8 +596,7 @@
         mainMarkers.transition()
             .duration(400)
             .attr('r', function ( datum ) {
-                // return val(datum.radius, options.radius, datum);
-                return 20;
+                return 23;
             })
             .transition()
             .duration(0)
@@ -598,30 +607,43 @@
         mainMarkersText
             .enter()
             .append('text')
-            .attr('class', 'main-marker-heading')
-            .attr('text-anchor', 'middle')
-            .text(function(datum){
-                return datum.name;
+            .attr('class', function(datum) {
+                if(datum.main) {
+                    return 'main-marker-text';
+                } else {
+                    return 'empty-marker';
+                }
             })
+            .attr('text-anchor', 'middle')
+            .call(wrap, 10, 'name') //text wrapper
             .attr('x', function(datum) {
-                var latLng;
-                if ( datumHasCoords(datum) ) {
-                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[0];
                 }
-                else if ( datum.centered ) {
-                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
-                }
-                if ( latLng ) return latLng[0];
             })
             .attr('y', function(datum) {
-                var latLng;
-                if ( datumHasCoords(datum) ) {
-                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng && datum.name.length <=10 )  {
+
+                        return latLng[1] + 5;
+                    } else if (latLng) {
+                        return latLng[1] + 2;
+                    }
                 }
-                else if ( datum.centered ) {
-                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
-                }
-                if ( latLng ) return latLng[1] + 10;
             })
             .style('font-size', '5')
             .style('font-family', 'Verdana')
@@ -632,30 +654,38 @@
         mainMarkersHeading
             .enter()
             .append('text')
-            .attr('class', 'main-marker-heading')
-            .attr('text-anchor', 'middle')
-            .text(function(datum){
-                return datum.heading;
+            .attr('class', function(datum) {
+                if(datum.main) {
+                    return 'main-marker-heading';
+                } else {
+                    return 'empty-marker';
+                }
             })
+            .call(wrap, 20, 'heading', '/.{10}\S*\s+/g') //text wrapper
             .attr('x', function(datum) {
-                var latLng;
-                if ( datumHasCoords(datum) ) {
-                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[0];
                 }
-                else if ( datum.centered ) {
-                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
-                }
-                if ( latLng ) return latLng[0];
             })
             .attr('y', function(datum) {
-                var latLng;
-                if ( datumHasCoords(datum) ) {
-                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[1] + 18;
                 }
-                else if ( datum.centered ) {
-                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
-                }
-                if ( latLng ) return latLng[1] + 15;
             })
             .style('font-size', '4')
             .style('font-family', 'Arial')
@@ -665,30 +695,120 @@
             .enter()
             .append('svg:image')
             .attr('xlink:href', '../images/main-pin.svg')
-            .attr('class', 'main-marker-pin')
+            .attr('class', function(datum) {
+                if(datum.main) {
+                    return 'main-marker-pin';
+                } else {
+                    return 'empty-marker';
+                }
+            })
             .attr('x', function(datum) {
-                var latLng;
-                if ( datumHasCoords(datum) ) {
-                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[0] - 5;
                 }
-                else if ( datum.centered ) {
-                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
-                }
-                if ( latLng ) return latLng[0] - 5;
             })
             .attr('y', function(datum) {
-                var latLng;
-                if ( datumHasCoords(datum) ) {
-                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[1] - 13;
                 }
-                else if ( datum.centered ) {
-                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
-                }
-                if ( latLng ) return latLng[1] - 12;
             })
-            .style('background', '#00ff00')
             .attr("width", "10")
             .attr("height", "15");
+
+
+        mainMarkersLink
+            .enter()
+            .append('a')
+            .attr("xlink:href", function(datum) {return datum.href;})
+            .attr('class', function(datum) {
+                if(datum.main) {
+                    return 'main-marker-plus';
+                } else {
+                    return 'empty-marker';
+                }
+            })
+            .attr('x', function(datum) {
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[0] - 5;
+                }
+            })
+            .attr('y', function(datum) {
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[1] +23;
+                }
+            })
+            .style('fill', '#00ff00')
+            .attr("width", "10")
+            .attr("height", "15")
+            .style('font-size', '4')
+            .style('font-family', 'Arial')
+            .style('fill', '#000000');;
+
+    mainMarkersLink
+        .append('svg:image')
+        .attr('xlink:href', '../images/plus.svg')
+        .attr('class', function(datum) {
+            if(datum.main) {
+                return 'main-marker-link';
+            } else {
+                return 'empty-marker';
+            }
+        })
+        .attr('x', function(datum) {
+            if(datum.main) {
+                var latLng;
+                if (datumHasCoords(datum)) {
+                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                }
+                else if (datum.centered) {
+                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                }
+                if (latLng) return latLng[0] - 5;
+            }
+        })
+        .attr('y', function(datum) {
+            if(datum.main) {
+                var latLng;
+                if (datumHasCoords(datum)) {
+                    latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                }
+                else if (datum.centered) {
+                    latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                }
+                if (latLng) return latLng[1] + 23;
+            }
+        })
+        .text('link')
+        .attr("width", "10")
+        .attr("height", "15");
 
         mainMarkers.exit()
             .transition()
@@ -696,8 +816,389 @@
             .attr("r", 0)
             .remove();
 
+        d3.selectAll('.empty-marker').remove();
+
+        function wrap(text, width, selector, regex) {
+
+            setTimeout(function(){
+                        text.each(function (index, i) {
+                            var text = d3.select(this),
+                                words,
+                                word,
+                                line = [],
+                                lineNumber = 0,
+                                lineHeight = 1, // ems
+                                x = text.attr("x"),
+                                y = text.attr("y"),
+                                dy = 0,
+                                tspan = text.text(null)
+                                    .append("tspan")
+                                    .attr("x", x)
+                                    .attr("y", y)
+                                    .attr("dy", dy + "em")
+                                    .attr('text-anchor', 'middle');
+
+                            if(selector === 'name') {
+                                words = this.__data__[selector].split(/\s+?/).reverse();
+                            } else if (selector === 'heading') {
+                                words = this.__data__[selector].replace(/.{15}\S*\s+/g, "$&@").split(/\s+@/).reverse();
+                            }
+
+                            while (word = words.pop()) {
+                                line.push(word);
+                                tspan.text(line.join(" "));
+                                if (tspan.node().getComputedTextLength() > width) {
+                                        line.pop();
+
+                                        tspan.text(line.join(" "));
+                                        line = [word];
+
+                                   if (tspan.text().length && selector === 'heading') {
+                                    tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word).attr('text-anchor', 'middle');
+
+                                   } else if (selector === 'name') {
+                                       tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word).attr('text-anchor', 'middle');
+                                   }
+
+                                }
+                            }
+                        });
+            }, 10);
+        }
 
 
+
+        function datumHasCoords (datum) {
+            return typeof datum !== 'undefined' && typeof datum.latitude !== 'undefined' && typeof datum.longitude !== 'undefined';
+        }
+
+    }
+
+    function handleSecondaryMarkers (layer, data, options ) {
+
+
+        var self = this,
+            fillData = this.options.fills,
+            filterData = this.options.filters,
+            svg = this.svg;
+
+        if ( !data || (data && !data.slice) ) {
+            throw "Datamaps Error - Markers must be an array";
+        }
+
+        var secondaryMarkers = layer.selectAll('rect.secondary-marker').data( data, options.key );
+        var secondaryMarkersArrow = layer.selectAll('rect.secondary-marker-diamond').data( data, options.key );
+        var secondaryMarkersText = layer.selectAll('.secondary-text').data( data, options.key );
+        var secondaryMarkersHeading = layer.selectAll('.secondary-heading').data( data, options.key );
+        var secondaryMarkersLink = layer.selectAll('.secondary-marker-link').data( data, options.key );
+        var secondaryMarkersDivider= layer.selectAll('.secondary-marker-divider').data( data, options.key );
+        var rectSize = 50;
+
+        secondaryMarkers
+            .enter()
+            .append('svg:rect')
+            .attr('class', function(datum) {
+                if(!datum.main) {
+                    return 'secondary-marker';
+                } else {
+                    return 'empty-marker';
+                }
+            })
+            .attr('x', function ( datum ) {
+
+                if(!datum.main) {
+                    var latLng;
+                    if ( datumHasCoords(datum) ) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if ( datum.centered ) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if ( latLng ) return latLng[0] - rectSize/2;
+                }
+            })
+            .attr('y', function ( datum ) {
+
+                if(!datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+
+                    if (latLng) return latLng[1] - rectSize/4 - 20;
+                }
+            })
+            .attr('width', function(datum) {
+                return rectSize;
+            })
+            .attr('height', function(datum) {
+                return rectSize/2;
+            })
+            .attr('data-info', function(datum) {
+                return JSON.stringify(datum);
+            })
+            .attr('filter', function (datum) {
+                var filterKey = filterData[ val(datum.filterKey, options.filterKey, datum) ];
+                if (filterKey) {
+                    return filterKey;
+                }
+            })
+            .style('fill-opacity', function ( datum ) {
+                return 1;
+            })
+            .style('fill', function ( datum ) {
+                return 'rgba(0, 0, 0, .9)';
+            });
+
+
+        secondaryMarkersArrow
+            .enter()
+            .append('svg:image')
+            .attr('xlink:href', '../images/diamond.svg')
+            .attr('class', function(datum) {
+                if(!datum.main) {
+                    return 'secondary-marker-diamond';
+                } else {
+                    return 'empty-marker';
+                }
+            })
+            .attr('x', function ( datum ) {
+
+                if(!datum.main) {
+                    var latLng;
+                    if ( datumHasCoords(datum) ) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if ( datum.centered ) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if ( latLng ) return latLng[0] - 5;
+                }
+            })
+            .attr('y', function ( datum ) {
+
+                if(!datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+
+                    if (latLng) return latLng[1] + rectSize/8 - 20;
+                }
+            })
+            .attr('width', function(datum) {
+                return 10;
+            })
+            .attr('height', function(datum) {
+                return 10;
+            })
+            .style('fill', function ( datum ) {
+                return 'rgba(0, 255, 0, .9)';
+            });
+
+
+
+        secondaryMarkers.transition()
+            .duration(400)
+            .attr('r', function ( datum ) {
+                return 23;
+            })
+            .transition()
+            .duration(0)
+            .attr('data-info', function(d) {
+                return JSON.stringify(d);
+            });
+
+        secondaryMarkersText
+            .enter()
+            .append('text')
+            .attr('class', function(datum) {
+                if(!datum.main) {
+                    return 'secondary-marker-text';
+                } else {
+                    return 'empty-marker';
+                }
+            })
+            .attr('text-anchor', 'middle')
+            .text('A guide to') //text wrapper
+            .attr('x', function(datum) {
+                if(!datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[0];
+                }
+            })
+            .attr('y', function(datum) {
+                if(!datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+
+                    if (latLng) {
+                        return latLng[1] - rectSize/2;
+                    }
+                }
+            })
+            .style('font-size', '5')
+            .style('font-family', 'Arial')
+            .style('text-transform', 'uppercase')
+            .style('fill', '#FFFFFF');
+
+        secondaryMarkersDivider
+            .enter()
+            .append('svg:rect')
+            .attr('class', function(datum) {
+                if(!datum.main) {
+                    return 'secondary-marker-divider';
+                } else {
+                    return 'empty-marker';
+                }
+            })
+            .attr('x', function ( datum ) {
+
+                if(!datum.main) {
+                    var latLng;
+                    if ( datumHasCoords(datum) ) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if ( datum.centered ) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if ( latLng ) return latLng[0] - rectSize/2 + 2;
+                }
+            })
+            .attr('y', function ( datum ) {
+
+                if(!datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+
+                    if (latLng) return latLng[1] - rectSize/8 - 14;
+                }
+            })
+            .attr('width', function(datum) {
+                return rectSize - 4;
+            })
+            .attr('height', function(datum) {
+                return 0.3;
+            })
+            .style('fill-opacity', function ( datum ) {
+                return 1;
+            })
+            .style('fill', function ( datum ) {
+                return '#BDB8B8';
+            });
+
+
+        secondaryMarkersHeading
+            .enter()
+            .append('text')
+            .attr('class', function(datum) {
+                if(!datum.main) {
+                    return 'secondary-marker-heading';
+                } else {
+                    return 'empty-marker';
+                }
+            })
+            .text(function(datum){
+                return datum.name
+            })
+            .attr('text-anchor', 'middle')
+            .attr('x', function(datum) {
+
+                if(!datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[0];
+                }
+            })
+            .attr('y', function(datum) {
+                if(!datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[1] - rectSize/4;
+                }
+            })
+            .style('font-size', '5')
+            .style('font-family', 'Verdana')
+            .style('font-weight', 'Bold')
+            .style('fill', '#FFFFFF');
+
+
+
+        secondaryMarkersLink
+            .enter()
+            .append('a')
+            .attr("xlink:href", function(datum) {return datum.href;})
+            .attr('class', function(datum) {
+                if(datum.main) {
+                    return 'main-marker-plus';
+                } else {
+                    return 'empty-marker';
+                }
+            })
+            .attr('x', function(datum) {
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[0] - 5;
+                }
+            })
+            .attr('y', function(datum) {
+                if(datum.main) {
+                    var latLng;
+                    if (datumHasCoords(datum)) {
+                        latLng = self.latLngToXY(datum.latitude, datum.longitude);
+                    }
+                    else if (datum.centered) {
+                        latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+                    }
+                    if (latLng) return latLng[1] +23;
+                }
+            })
+            .style('fill', '#00ff00')
+            .attr("width", "10")
+            .attr("height", "15")
+            .style('font-size', '4')
+            .style('font-family', 'Arial')
+            .style('fill', '#000000');
+
+        d3.selectAll('.empty-marker').remove();
         function datumHasCoords (datum) {
             return typeof datum !== 'undefined' && typeof datum.latitude !== 'undefined' && typeof datum.longitude !== 'undefined';
         }
@@ -807,7 +1308,7 @@
                 }
 
                 d3.selectAll('.datamaps-hoverover').style('display', 'none');
-            })
+            });
 
         bubbles.transition()
             .duration(400)
@@ -873,6 +1374,7 @@
 
         // Add core plugins to this instance
         this.addPlugin('mainMarkers', handleMainMarkers);
+        this.addPlugin('secondaryMarkers', handleSecondaryMarkers);
         this.addPlugin('bubbles', handleBubbles);
         this.addPlugin('legend', addLegend);
         this.addPlugin('arc', handleArcs);
