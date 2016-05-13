@@ -557,6 +557,76 @@ var redMap = new Datamap(),
             country: 'FRA',
             fillKey: 'black',
             href: '#'
+        },
+        {
+            name: 'Holland',
+            heading: 'The trendiest places to visit in Amsterdam',
+            radius: 2,
+            main: true,
+            centered: 'NLD',
+            country: 'NLD',
+            fillKey: 'black',
+            href: '#'
+        },
+        {
+            name: 'Italy',
+            heading: 'Why Florence is the new fashion capital',
+            radius: 2,
+            main: true,
+            centered: 'ITA',
+            country: 'ITA',
+            fillKey: 'black',
+            href: '#'
+        },
+        {
+            name: 'Croatia',
+            heading: 'Undisclosed island idylls',
+            radius: 2,
+            main: true,
+            centered: 'HRV',
+            country: 'HRV',
+            fillKey: 'black',
+            href: '#'
+        },
+        {
+            name: 'Czech Republic',
+            heading: 'Find Franz Kafka`s secrets',
+            radius: 2,
+            main: false,
+            centered: 'CZE',
+            country: 'CZE',
+            fillKey: 'black',
+            href: '#'
+        },
+        {
+            name: 'Austria',
+            heading: 'soundtrack by Johan Strauss',
+            radius: 2,
+            main: false,
+            centered: 'AUT',
+            country: 'AUT',
+            fillKey: 'black',
+            href: '#'
+        },
+        {
+            name: 'Slovenia',
+            heading: 'Lorem Ipsum sit dolor amnet',
+            radius: 2,
+            main: false,
+            centered: 'SVN',
+            country: 'SVN',
+            fillKey: 'black',
+            href: '#'
+        },
+        {
+            name: 'Switzerland',
+            heading: 'Lorem Ipsum sit dolor amnet',
+            radius: 2,
+            main: false,
+            centered: 'CHE',
+            country: 'CHE',
+            fillKey: 'black',
+            href: '#'
         }
     ];
 
