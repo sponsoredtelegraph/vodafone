@@ -562,46 +562,10 @@
                 }
             })
             .style('fill-opacity', function ( datum ) {
-                return 1;
+                return 0;
             })
             .style('fill', function ( datum ) {
                 return 'rgba(255, 255, 255, .9)';
-            });
-
-
-
-        function addMarkerData (element, d, options) {
-            var self = this;
-            element.on('mousemove', null);
-            element.on('mousemove', function() {
-                var position = d3.mouse(self.options.element);
-                d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover')
-                    .style('top', ( (position[1] + 30)) + "px")
-                    .html(function() {
-                        var data = JSON.parse(element.attr('data-info'));
-                        try {
-                            return options.popupTemplate(d, data);
-                        } catch (e) {
-                            return "";
-                        }
-                    })
-                    .style('left', ( position[0]) + "px");
-            });
-
-            d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover').style('display', 'block');
-        };
-
-
-
-        mainMarkers.transition()
-            .duration(400)
-            .attr('r', function ( datum ) {
-                return 23;
-            })
-            .transition()
-            .duration(0)
-            .attr('data-info', function(d) {
-                return JSON.stringify(d);
             });
 
         mainMarkersText
@@ -649,7 +613,8 @@
             .style('font-family', 'Verdana')
             .style('font-weight', 'Bold')
             .style('text-transform', 'uppercase')
-            .style('fill', '#000000');
+            .style('fill', '#000000')
+            .style('fill-opacity', 0);
 
         mainMarkersHeading
             .enter()
@@ -684,12 +649,13 @@
                     else if (datum.centered) {
                         latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
                     }
-                    if (latLng) return latLng[1] + 18;
+                    if (latLng) return latLng[1] + 17;
                 }
             })
             .style('font-size', '4')
             .style('font-family', 'Arial')
-            .style('fill', '#000000');
+            .style('fill', '#000000')
+            .style('fill-opacity', 0);
 
         mainMarkersPin
             .enter()
@@ -727,7 +693,8 @@
                 }
             })
             .attr("width", "10")
-            .attr("height", "15");
+            .attr("height", "15")
+            .style('fill-opacity', 0);
 
 
         mainMarkersLink
@@ -762,7 +729,7 @@
                     else if (datum.centered) {
                         latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
                     }
-                    if (latLng) return latLng[1] +23;
+                    if (latLng) return latLng[1] + 24;
                 }
             })
             .style('fill', '#00ff00')
@@ -770,7 +737,7 @@
             .attr("height", "15")
             .style('font-size', '4')
             .style('font-family', 'Arial')
-            .style('fill', '#000000');;
+            .style('fill', '#000000');
 
     mainMarkersLink
         .append('svg:image')
@@ -803,7 +770,7 @@
                 else if (datum.centered) {
                     latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
                 }
-                if (latLng) return latLng[1] + 23;
+                if (latLng) return latLng[1] + 24;
             }
         })
         .text('link')
@@ -818,7 +785,7 @@
 
         d3.selectAll('.empty-marker').remove();
 
-        function wrap(text, width, selector, regex) {
+        function wrap(text, width, selector) {
 
             setTimeout(function(){
                         text.each(function (index, i) {
@@ -866,12 +833,9 @@
             }, 10);
         }
 
-
-
         function datumHasCoords (datum) {
             return typeof datum !== 'undefined' && typeof datum.latitude !== 'undefined' && typeof datum.longitude !== 'undefined';
         }
-
     }
 
     function handleSecondaryMarkers (layer, data, options ) {

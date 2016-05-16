@@ -92,7 +92,10 @@ var defaults = defaults || {};
             white: '#FFFFFF',
             lightGrey: '#D0D0D0',
             black: '#000000'
-        }
+        },
+
+        time: 40,
+        animateOnce: true
     };
 
 
@@ -125,6 +128,11 @@ Zoom.prototype.init = function() {
     this.scale.set = this._getScalesArray();
     this.d3Zoom = d3.behavior.zoom().scaleExtent([ 1, this.scale.max ]);
 
+    setTimeout(function () {
+
+        d3.selectAll('.mainMarkers').style("visibility", 'hidden');
+        d3.selectAll('.secondaryMarkers').style("visibility", 'hidden');
+    }, 8);
     this._displayPercentage(1);
     this.listen();
 };
@@ -135,10 +143,121 @@ Zoom.prototype.listen = function() {
     this.datamap.svg
         .call(this.d3Zoom.on('zoom', this._handleScroll.bind(this)))
         .on('dblclick.zoom', null); // disable zoom on double-click
+
 };
 
 Zoom.prototype.reset = function() {
     this._shift('reset');
+};
+
+Zoom.prototype._toggleMainMarkers = function(scale) {
+
+    var self = this;
+
+    if (scale > 2 ) {
+        d3.selectAll('.mainMarkers').style("visibility", "visible");
+        self._animateMainMarkersIn();
+
+        setTimeout(function(){
+            defaults.animateOnce = false;
+        }, 10);
+    } else {
+
+        self._animateMainMarkersOut();
+        setTimeout(function() {
+            d3.selectAll('.mainMarkers').style("visibility", 'hidden');
+        }, defaults.time);
+
+        setTimeout(function(){
+            defaults.animateOnce = true;
+        }, 10);
+    }
+};
+
+    Zoom.prototype._animateMainMarkersIn = function() {
+
+        var mainMarkers = d3.selectAll('circle.main-marker'),
+            mainMarkersText = d3.selectAll('.main-marker-text'),
+            mainMarkersHeading = d3.selectAll('.main-marker-heading'),
+            mainMarkersPin = d3.selectAll('.main-marker-pin');
+
+
+        var delay = function(d, i) { return i * defaults.time; };
+        mainMarkers.transition()
+            .duration(defaults.time *1.2)
+            .attr('r', function ( datum ) {
+                return 23;
+            })
+            .style('fill-opacity', 1)
+            .ease('cube')
+            .delay(delay);
+
+        mainMarkersText.transition()
+            .duration(1.2*defaults.time)
+            .style('fill-opacity', 1)
+            .delay(delay);
+
+        mainMarkersHeading.transition()
+            .duration(1.2*defaults.time)
+            .style('fill-opacity', 1)
+            .delay(delay);
+
+        mainMarkersPin.transition()
+            .duration(defaults.time)
+            .style('opacity', 1)
+            .ease('cubic')
+            .delay(function(d, i) { return 2.5 * i * defaults.time; });
+    };
+
+
+
+
+
+    Zoom.prototype._animateMainMarkersOut = function() {
+
+        var mainMarkers = d3.selectAll('circle.main-marker');
+            mainMarkersText = d3.selectAll('.main-marker-text'),
+            mainMarkersHeading = d3.selectAll('.main-marker-heading'),
+            mainMarkersPin = d3.selectAll('.main-marker-pin');
+
+        mainMarkers.transition()
+            .duration(defaults.time)
+            .style('fill-opacity', 0)
+            .attr('r', function (datum) {
+                return 2;
+            })
+            .transition();
+
+        mainMarkersText.transition()
+            .duration(defaults.time / 1.1)
+            .style('fill-opacity', 0);
+
+        mainMarkersHeading.transition()
+            .duration(defaults.time / 1.1)
+            .style('fill-opacity/1.1', 0);
+
+        mainMarkersPin.transition()
+            .duration(2*defaults.time)
+            // .attr('y', function(datum) {
+            //     var y = $(this).attr('y');
+            //
+            //     if (!defaults.animateOnce) {
+            //         return y+13;
+            //     }
+            //
+            //     console.log(y);
+            // })
+            .style('opacity', 0);
+    };
+
+Zoom.prototype._toggleSecondaryMarkers = function(scale) {
+
+    if (scale > 3 ) {
+        d3.selectAll('.secondaryMarkers').style("visibility", "visible");
+    } else {
+        d3.selectAll('.secondaryMarkers').style("visibility", 'hidden');
+
+    }
 };
 
 Zoom.prototype._handleScroll = function() {
@@ -149,6 +268,9 @@ Zoom.prototype._handleScroll = function() {
     this.scrolled = true;
 
     this._update(limited.translate, limited.scale);
+
+    this._toggleMainMarkers(scale);
+    this._toggleSecondaryMarkers(scale);
 };
 
 Zoom.prototype._handleClick = function(event) {
@@ -334,7 +456,7 @@ function Datamap() {
             var projection = d3.geo.mercator()
                 .center([-10, 55])
                 // .rotate([4.4, 0])
-                .scale(700)
+                .scale(650)
                 .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
             var path = d3.geo.path()
                 .projection(projection);
@@ -523,8 +645,10 @@ var redMap = new Datamap(),
             heading: 'Visit Britain`s sandy beaches',
             radius: 2,
             main: true,
-            centered: 'GBR',
+            // centered: 'GBR',
             country: 'GBR',
+            latitude: 53.007347,
+            longitude: -1.274414,
             fillKey: 'black',
             href: '#'
         },
