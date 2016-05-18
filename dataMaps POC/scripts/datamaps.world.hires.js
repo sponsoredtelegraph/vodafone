@@ -609,7 +609,7 @@
                     }
                 }
             })
-            .style('font-size', '5')
+            .style('font-size', '5px')
             .style('font-family', 'Verdana')
             .style('font-weight', 'Bold')
             .style('text-transform', 'uppercase')
@@ -652,7 +652,7 @@
                     if (latLng) return latLng[1] + 17;
                 }
             })
-            .style('font-size', '4')
+            .style('font-size', '4px')
             .style('font-family', 'Arial')
             .style('fill', '#000000')
             .style('fill-opacity', 0);
@@ -735,9 +735,10 @@
             .style('fill', '#00ff00')
             .attr("width", "10")
             .attr("height", "15")
-            .style('font-size', '4')
+            .style('font-size', '4px')
             .style('font-family', 'Arial')
             .style('fill', '#000000');
+
 
     mainMarkersLink
         .append('svg:image')
@@ -775,7 +776,8 @@
         })
         .text('link')
         .attr("width", "10")
-        .attr("height", "15");
+        .attr("height", "15")
+        .style('opacity', 0);
 
         mainMarkers.exit()
             .transition()
@@ -911,7 +913,7 @@
                 }
             })
             .style('fill-opacity', function ( datum ) {
-                return 1;
+                return 0;
             })
             .style('fill', function ( datum ) {
                 return 'rgba(0, 0, 0, .9)';
@@ -1018,7 +1020,7 @@
                     }
                 }
             })
-            .style('font-size', '5')
+            .style('font-size', '5px')
             .style('font-family', 'Arial')
             .style('text-transform', 'uppercase')
             .style('fill', '#FFFFFF');
@@ -1113,7 +1115,7 @@
                     if (latLng) return latLng[1] - rectSize/4;
                 }
             })
-            .style('font-size', '5')
+            .style('font-size', '5px')
             .style('font-family', 'Verdana')
             .style('font-weight', 'Bold')
             .style('fill', '#FFFFFF');
@@ -1158,7 +1160,7 @@
             .style('fill', '#00ff00')
             .attr("width", "10")
             .attr("height", "15")
-            .style('font-size', '4')
+            .style('font-size', '4px')
             .style('font-family', 'Arial')
             .style('fill', '#000000');
 

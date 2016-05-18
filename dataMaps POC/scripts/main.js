@@ -88,7 +88,7 @@ var defaults = defaults || {};
         },
         
         colors: {
-            red: '#BB190D',
+            red: 'rgba(164, 19, 9, 0.8)',
             white: '#FFFFFF',
             lightGrey: '#D0D0D0',
             black: '#000000'
@@ -98,107 +98,167 @@ var defaults = defaults || {};
         animateOnce: true
     };
 
+    function Zoom(args) {
+        $.extend(this, {
+            $buttons:   $(defaults.selectors.zoom.button),
+            $info:      $(defaults.selectors.zoom.info),
+            scale:      { max: 50, currentShift: 0 },
+            $container: args.$container,
+            datamap:    args.datamap
+        });
 
-function Zoom(args) {
-    $.extend(this, {
-        $buttons:   $(defaults.selectors.zoom.button),
-        $info:      $(defaults.selectors.zoom.info),
-        scale:      { max: 50, currentShift: 0 },
-        $container: args.$container,
-        datamap:    args.datamap
-    });
-
-    this.init();
-}
-
-Zoom.prototype.init = function() {
-    var paths = this.datamap.svg.selectAll('path'),
-        subunits = this.datamap.svg.selectAll(defaults.selectors.subunit);
-
-    // preserve stroke thickness
-    paths.style('vector-effect', 'non-scaling-stroke');
-
-    // disable click on drag end
-    subunits.call(
-        d3.behavior.drag().on('dragend', function() {
-            d3.event.sourceEvent.stopPropagation();
-        })
-    );
-
-    this.scale.set = this._getScalesArray();
-    this.d3Zoom = d3.behavior.zoom().scaleExtent([ 1, this.scale.max ]);
-
-    setTimeout(function () {
-
-        d3.selectAll('.mainMarkers').style("visibility", 'hidden');
-        d3.selectAll('.secondaryMarkers').style("visibility", 'hidden');
-    }, 8);
-    this._displayPercentage(1);
-    this.listen();
-};
-
-Zoom.prototype.listen = function() {
-    this.$buttons.off('click').on('click', this._handleClick.bind(this));
-
-    this.datamap.svg
-        .call(this.d3Zoom.on('zoom', this._handleScroll.bind(this)))
-        .on('dblclick.zoom', null); // disable zoom on double-click
-
-};
-
-Zoom.prototype.reset = function() {
-    this._shift('reset');
-};
-
-Zoom.prototype._toggleMainMarkers = function(scale) {
-
-    var self = this;
-
-    if (scale > 2 ) {
-        d3.selectAll('.mainMarkers').style("visibility", "visible");
-        self._animateMainMarkersIn();
-
-        setTimeout(function(){
-            defaults.animateOnce = false;
-        }, 10);
-    } else {
-
-        self._animateMainMarkersOut();
-        setTimeout(function() {
-            d3.selectAll('.mainMarkers').style("visibility", 'hidden');
-        }, defaults.time);
-
-        setTimeout(function(){
-            defaults.animateOnce = true;
-        }, 10);
+        this.init();
     }
-};
 
-    Zoom.prototype._animateMainMarkersIn = function() {
+    Zoom.prototype.init = function() {
+        var paths = this.datamap.svg.selectAll('path'),
+            subunits = this.datamap.svg.selectAll(defaults.selectors.subunit),
+            svg = d3.selectAll('.datamaps-subunits');
 
-        var mainMarkers = d3.selectAll('circle.main-marker'),
+        // svg
+        //     .insert('svg:image', ':first-child')
+        //     .attr('xlink:href', '../images/test-map.jpg')
+        //     .attr('class', 'map-terrain')
+        //     .attr('x', 346)
+        //     .attr('y', -50)
+        //     .attr('width', 1257)
+        //     .attr('height', 911);
+
+        d3.selectAll('svg').attr('preserveAspectRatio', 'xMidYMid meet');
+
+
+        // preserve stroke thickness
+        paths.style('vector-effect', 'non-scaling-stroke');
+
+        // disable click on drag end
+        subunits.call(
+            d3.behavior.drag().on('dragend', function() {
+                d3.event.sourceEvent.stopPropagation();
+            })
+        );
+
+        this.scale.set = this._getScalesArray();
+        this.d3Zoom = d3.behavior.zoom().scaleExtent([ 1, this.scale.max ]);
+
+        setTimeout(function () {
+
+            d3.selectAll('.mainMarkers').style("visibility", 'hidden');
+            d3.selectAll('.secondaryMarkers').style("visibility", 'hidden');
+        }, 8);
+        this._displayPercentage(1);
+        this.listen();
+    };
+
+    Zoom.prototype.listen = function() {
+        this.$buttons.off('click').on('click', this._handleClick.bind(this));
+
+        this.datamap.svg
+            .call(this.d3Zoom.on('zoom', this._handleScroll.bind(this)))
+            .on('dblclick.zoom', null); // disable zoom on double-click
+
+    };
+
+    Zoom.prototype.reset = function() {
+        this._shift('reset');
+    };
+
+    Zoom.prototype._toggleMainMarkers = function(scale) {
+
+        var self = this;
+
+        if (scale > 2 ) {
+            d3.selectAll('.mainMarkers').style("visibility", "visible");
+            self._animateMainMarkersIn(scale);
+        } else {
+
+            self._animateMainMarkersOut();
+            setTimeout(function() {
+                d3.selectAll('.mainMarkers').style("visibility", 'hidden');
+            }, defaults.time);
+        }
+    };
+
+    Zoom.prototype._toggleSecondaryMarkers = function(scale) {
+        var self = this;
+
+        if (scale > 3 ) {
+            d3.selectAll('.secondaryMarkers').style("visibility", "visible");
+            self._animateSecondaryMarkersIn();
+        } else {
+            self._animateSecondaryMarkersOut();
+            setTimeout(function() {
+                d3.selectAll('.secondaryMarkers').style("visibility", 'hidden');
+            }, defaults.time);
+        }
+    };
+
+    // if(datum.main) {
+    //     var latLng;
+    //     if (datumHasCoords(datum)) {
+    //         latLng = self.latLngToXY(datum.latitude, datum.longitude);
+    //     }
+    //     else if (datum.centered) {
+    //         latLng = self.path.centroid(svg.select('path.' + datum.centered).data()[0]);
+    //     }
+    //     if (latLng) return latLng[0];
+    // }
+    //
+    //
+    // function datumHasCoords (datum) {
+    //     return typeof datum !== 'undefined' && typeof datum.latitude !== 'undefined' && typeof datum.longitude !== 'undefined';
+    // }
+    //
+    //
+    // Datamap.prototype.latLngToXY = function(lat, lng) {
+    //     return this.projection([lng, lat]);
+    // };
+
+    Zoom.prototype._animateMainMarkersIn = function(scale) {
+
+        console.log('scale ', scale);
+
+        var mainMarkers = d3.selectAll('.main-marker'),
+            mainMarkersGroup = d3.selectAll('.mainMarkers'),
             mainMarkersText = d3.selectAll('.main-marker-text'),
             mainMarkersHeading = d3.selectAll('.main-marker-heading'),
+            mainMarkersLink = d3.selectAll('.main-marker-link'),
             mainMarkersPin = d3.selectAll('.main-marker-pin');
+
+        
+        mainMarkersGroup.transition()
+            .duration(defaults.time)
+            .attr('transform', 'translate(0,0)scale(' + scale + ')rotate(180)');
+
 
 
         var delay = function(d, i) { return i * defaults.time; };
         mainMarkers.transition()
             .duration(defaults.time *1.2)
             .attr('r', function ( datum ) {
-                return 23;
+                return 46 / scale;
             })
+            .attr('transform', 'translate( 0, ' + eval(0 - scale/1.5) +' )')
+
+            .style('fill-opacity', 1)
             .style('fill-opacity', 1)
             .ease('cube')
             .delay(delay);
 
         mainMarkersText.transition()
             .duration(1.2*defaults.time)
+            .attr('transform', 'translate( 0, ' + eval(0 - scale/1.5) +' )')
+            .style('font-size', function() {
+                return 6 - 1/4*scale;
+            })
             .style('fill-opacity', 1)
             .delay(delay);
 
         mainMarkersHeading.transition()
             .duration(1.2*defaults.time)
+            .attr('transform', 'translate( 0, ' + eval(0 - scale/1.5) +' )')
+            .style('font-size', function() {
+                return 6 - 1/4*scale;
+            })
             .style('fill-opacity', 1)
             .delay(delay);
 
@@ -207,17 +267,20 @@ Zoom.prototype._toggleMainMarkers = function(scale) {
             .style('opacity', 1)
             .ease('cubic')
             .delay(function(d, i) { return 2.5 * i * defaults.time; });
+
+        mainMarkersLink.transition()
+            .duration(defaults.time)
+            .style('opacity', 1)
+            .ease('cubic')
+            .delay(function(d, i) { return 2.5 * i * defaults.time; });
     };
-
-
-
-
 
     Zoom.prototype._animateMainMarkersOut = function() {
 
-        var mainMarkers = d3.selectAll('circle.main-marker');
+        var mainMarkers = d3.selectAll('circle.main-marker'),
             mainMarkersText = d3.selectAll('.main-marker-text'),
             mainMarkersHeading = d3.selectAll('.main-marker-heading'),
+            mainMarkersLink = d3.selectAll('.main-marker-link'),
             mainMarkersPin = d3.selectAll('.main-marker-pin');
 
         mainMarkers.transition()
@@ -237,27 +300,31 @@ Zoom.prototype._toggleMainMarkers = function(scale) {
             .style('fill-opacity/1.1', 0);
 
         mainMarkersPin.transition()
-            .duration(2*defaults.time)
-            // .attr('y', function(datum) {
-            //     var y = $(this).attr('y');
-            //
-            //     if (!defaults.animateOnce) {
-            //         return y+13;
-            //     }
-            //
-            //     console.log(y);
-            // })
+            .duration(defaults.time)
+            .style('opacity', 0);
+
+        mainMarkersLink.transition()
+            .duration(defaults.time)
             .style('opacity', 0);
     };
 
-Zoom.prototype._toggleSecondaryMarkers = function(scale) {
+Zoom.prototype._animateSecondaryMarkersIn = function() {
+    var secondaryMarkers = d3.selectAll('rect.secondary-marker');
 
-    if (scale > 3 ) {
-        d3.selectAll('.secondaryMarkers').style("visibility", "visible");
-    } else {
-        d3.selectAll('.secondaryMarkers').style("visibility", 'hidden');
+    secondaryMarkers.transition()
+        .duration(defaults.time)
+        .style('fill-opacity', 1)
+        .ease('cubic');
+};
 
-    }
+Zoom.prototype._animateSecondaryMarkersOut = function() {
+    var secondaryMarkers = d3.selectAll('rect.secondary-marker');
+
+    secondaryMarkers.transition()
+        .duration(defaults.time)
+        .style('fill-opacity', 0)
+        .ease('cubic');
+    
 };
 
 Zoom.prototype._handleScroll = function() {
@@ -540,6 +607,7 @@ function Datamap() {
             'SVN': defaults.colors.red,
             'ESP': defaults.colors.red,
             'SWE': defaults.colors.red,
+            'TUR': defaults.colors.red,
             'CHE': defaults.colors.red,
             'UKR': defaults.colors.red,
             'GBR': defaults.colors.red,
@@ -596,6 +664,7 @@ function Datamap() {
             'SVN': {fillKey: 'SVN'},
             'ESP': {fillKey: 'ESP'},
             'SWE': {fillKey: 'SWE'},
+            'TUR': {fillKey: 'SVN'},
             'CHE': {fillKey: 'CHE'},
             'UKR': {fillKey: 'UKR'},
             'GBR': {fillKey: 'GBR'},
