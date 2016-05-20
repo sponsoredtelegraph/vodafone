@@ -3,7 +3,7 @@
 
     var map = L.mapbox
             .map('map', 'mapbox.light', {attributionControl: false, zoomControl: false, minZoom: 3, maxZoom: 8})
-            .setView([49, 2], 4);
+            .setView([49, 2], 5);
 
     L.control.zoomslider().addTo(map);
 
@@ -32,7 +32,7 @@
                     var secondaryMarkerHtml = '<div class="marker-secondary">' +
                         '<span class="secondary-subunit">' + feature.properties.sr_subunit + '</span>' +
                         '<p class="secondary-copy">' + feature.properties.content.copy + '</p>' +
-                        '<a class="secondary-href" href=" target="_blank"' + feature.properties.content.href + '">&nbsp</a>',
+                        '<a class="secondary-href" href="' + feature.properties.content.href + '">&nbsp</a>',
 
 
                         testSecondaryMarkerHtml = '<div class="leaflet-popup  leaflet-zoom-animated">' +
@@ -83,7 +83,7 @@
 
 
     var mainMap = L.mapbox.featureLayer()
-        .loadURL('/data/destinations.geojson')
+        .loadURL('data/destinations.geojson')
         .on('ready', function(e) {
 
             gj.addData(this.getGeoJSON());
@@ -120,10 +120,27 @@
         if (!destination) {
             e.layer.openPopup();
         }
+
+        if (map.getZoom() < 5 &&  destination === 'main') {
+            e.layer.openPopup();
+        }
+
+        if (map.getZoom() < 6 &&  destination === 'secondary') {
+            e.layer.openPopup();
+        }
+
     });
     mainMap.on('mouseout', function(e) {
         var destination = e.layer.feature.properties.destination;
         if (!destination) {
+            e.layer.closePopup();
+        }
+
+        if (map.getZoom() < 5 &&  destination === 'main') {
+            e.layer.closePopup();
+        }
+
+        if (map.getZoom() < 6 &&  destination === 'secondary') {
             e.layer.closePopup();
         }
     });
@@ -139,7 +156,7 @@
      */
     map.on('ready', function() {
         var minimap = L.mapbox.tileLayer('mapbox.light'),
-            miniCoverage = omnivore.topojson('/data/VodafoneCoverageTopoJson.json');
+            miniCoverage = omnivore.topojson('data/vodafoneCoverageTopoJson.json');
 
         layers = new L.LayerGroup([minimap, miniCoverage]);
 
@@ -151,9 +168,13 @@
             .addTo(map);
 
 
-        $('.vdf-marker-main').hide();
+        // $('.vdf-marker-main').hide();
         $('.vdf-marker-secondary').hide();
-        $('.vdf-marker').remove();
+
+        setTimeout(function() {
+
+            $('.vdf-marker').remove();
+        }, 20);
     });
 
 
@@ -175,6 +196,10 @@
         }
     });
 
+    $('.roaming__coverage').on('click', function(){
+        map.setView([55, -8], 3);
+    });
+
     //TODO get style locally
     L.mapbox.styleLayer('mapbox://styles/yozzo/cioei8vzc002yczmamm4yefeb').addTo(map);
 
@@ -182,7 +207,7 @@
     // into GeoJSON.
 
     //TODO swap with valid geoJSON
-    var VodafoneLayer = omnivore.topojson('/data/VodafoneCoverageTopoJson.json')
+    var VodafoneLayer = omnivore.topojson('data/VodafoneCoverageTopoJson.json')
         .addTo(map);
 
 })();
