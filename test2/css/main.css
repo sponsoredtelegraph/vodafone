@@ -113,7 +113,8 @@ body {
     text-align: center;
     line-height: 1.5; }
   .destinations__legend ul {
-    padding-left: 0; }
+    padding-left: 0;
+    margin-bottom: 30px; }
   .destinations__legend ul li {
     list-style: none;
     color: #FFFFFF;
@@ -138,8 +139,8 @@ body {
     width: 100%;
     background-color: #FFFFFF;
     border: none;
-    padding-top: 0.3125em;
-    padding-bottom: 0.3125em;
+    padding-top: 0.4375em;
+    padding-bottom: 0.4375em;
     cursor: pointer; }
     .destinations .roaming__coverage :hover {
       background-color: #B1B8BD; }
@@ -175,9 +176,9 @@ body {
   border-top: 10px solid rgba(0, 0, 0, 0.8); }
 
 .vdf-marker-main {
-  z-index: 5000 !important; }
+  z-index: 3000 !important; }
 .vdf-marker-secondary {
-  z-index: 3000 !important;
+  z-index: 5000 !important;
   display: none;
   margin-left: -43px !important;
   margin-top: -29px !important; }
@@ -185,9 +186,9 @@ body {
 .marker-main {
   background: #FFFFFF;
   border-radius: 50%;
-  width: 11.25em;
-  height: 11.25em;
-  padding: 30px 10px;
+  width: 9.875em;
+  height: 9.875em;
+  padding: 30px 2px;
   text-align: center;
   position: relative;
   color: #000000; }

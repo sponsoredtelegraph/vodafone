@@ -45,7 +45,12 @@
                 "sr_subunit": "Austria",
                 "sr_brk_a3": "AUT",
                 "sr_adm0_a3": "AUT",
-                "scalerank": 0
+                "scalerank": 0,
+                "destination": "secondary",
+                "content": {
+                	"copy": "Lorem Ipsum",
+                	"href": "#"
+                }
             },
             "geometry": {
                 "type": "Point",
@@ -62,17 +67,17 @@
                 "sr_brk_a3": "BEL",
                 "sr_adm0_a3": "BEL",
                 "scalerank": 0,
-                "destination": "secondary",
-                "content": {
-                    "copy": "The best subterranean attractions in Belgium",
-                    "href": "#"
-                }
+                "destination": "main",
+				"content" : {
+					"copy": "The best subterranean attractions in Belgium",
+					"href": "#"
+				}
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    50.561432,
-                    4.921875
+                    2.7564262,
+                    50.8884655
                 ]
             }
         },
@@ -115,7 +120,7 @@
                 "sr_brk_a3": "HRV",
                 "sr_adm0_a3": "HRV",
                 "scalerank": 0,
-                "destination": "secondary",
+                "destination": "main",
                 "content" : {
                     "copy": "Undiscovered island idylls",
                     "href": "#"
@@ -124,8 +129,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    45.100000,
-                    15.200000
+                    15.200000,
+                    45.100000
                 ]
             }
         },
@@ -135,7 +140,12 @@
                 "sr_subunit": "Czech Rep.",
                 "sr_brk_a3": "CZE",
                 "sr_adm0_a3": "CZE",
-                "scalerank": 0
+                "scalerank": 0,
+                "destination": "secondary",
+				"content": {
+					"copy": "Lorem Ipsum",
+					"href": "#"
+				}
             },
             "geometry": {
                 "type": "Point",
@@ -203,7 +213,7 @@
                 "destination": "main",
                 "content" : {
                     "copy": "France's European Championship cities",
-                    "href": "https://en.wikipedia.org/wiki/S%C3%A9nanque_Abbey"
+                    "href": "#"
                 }
             },
             "geometry": {
@@ -224,7 +234,7 @@
                 "destination": "main",
                 "content" : {
                     "copy": "Why Hamburg is the new Berlin",
-                    "href": "https://en.wikipedia.org/wiki/Autobahn"
+                    "href": "#"
                 }
             },
             "geometry": {
@@ -266,7 +276,7 @@
                 "destination": "main",
                 "content" : {
                     "copy": "Why Florence is the new fashion capital",
-                    "href": "https://en.wikipedia.org/wiki/Florence"
+                    "href": "#"
                 }
             },
             "geometry": {
@@ -331,7 +341,12 @@
                 "sr_subunit": "Luxembourg",
                 "sr_brk_a3": "LUX",
                 "sr_adm0_a3": "LUX",
-                "scalerank": 0
+                "scalerank": 0,
+                "destination": "secondary",
+				"content": {
+					"copy": "Lorem Ipsum",
+					"href": "#"
+				}
             },
             "geometry": {
                 "type": "Point",
@@ -396,17 +411,17 @@
                 "sr_brk_a3": "NLX",
                 "sr_adm0_a3": "NLD",
                 "scalerank": 0,
-                "destination": "secondary",
-                "content": {
-                    "copy": "The trendiest places to visit in Amsterdam",
-                    "href": "#"
-                }
+                "destination": "main",
+				"content" : {
+					"copy": "Touch of mistery on a pure breed stallion",
+					"href": "#"
+				}
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    5.322768998090964,
-                    52.17235334752911
+                    6.4762915,
+                    53.1357115
                 ]
             }
         },
@@ -432,8 +447,7 @@
                 "sr_subunit": "Poland",
                 "sr_brk_a3": "POL",
                 "sr_adm0_a3": "POL",
-                "scalerank": 0,
-                "destination": "secondary"
+                "scalerank": 0
 
             },
             "geometry": {
@@ -516,10 +530,10 @@
                 "sr_adm0_a3": "SVN",
                 "scalerank": 0,
                 "destination": "secondary",
-                "content" : {
-                    "copy": "Touch of mistery on a pure breed stallion",
-                    "href": "https://en.wikipedia.org/wiki/Lipizzan"
-                }
+				"content": {
+					"copy": "Lorem Ipsum",
+					"href": "#"
+				}
             },
             "geometry": {
                 "type": "Point",
@@ -536,10 +550,10 @@
                 "sr_brk_a3": "ESY",
                 "sr_adm0_a3": "ESP",
                 "scalerank": 0,
-                "destination": "secondary",
+                "destination": "main",
                 "content" : {
                     "copy": "The secret hideaways of the Balearics",
-                    "href": "https://en.wikipedia.org/wiki/Cava_(Spanish_wine)"
+                    "href": "#"
                 }
                
             },
@@ -577,7 +591,7 @@
                 "destination": "secondary",
                 "content" : {
                     "copy": "Lose yourself in the scenery",
-                    "href": " https://en.wikipedia.org/wiki/Switzerland"
+                    "href": "#"
                 }
                
             },
@@ -627,12 +641,7 @@
                 "sr_subunit": "United Kingdom",
                 "sr_brk_a3": "ENG",
                 "sr_adm0_a3": "GBR",
-                "scalerank": 0,
-                "destination": "main",
-                "content" : {
-                    "copy": "Visit Britain's sandy beaches",
-                    "href": "#"
-                }
+                "scalerank": 0
             },
             "geometry": {
                 "type": "Point",

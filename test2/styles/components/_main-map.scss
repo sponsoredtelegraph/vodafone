@@ -43,6 +43,7 @@ body { margin:0; padding:0; }
 
         ul {
             padding-left: 0;
+            margin-bottom: 30px;
         }
 
         ul li {
@@ -78,8 +79,9 @@ body { margin:0; padding:0; }
         width: 100%;
         background-color: $color-white;
         border: none;
-        padding-top: em(5);
-        padding-bottom: em(5);
+        padding-top: em(7);
+        padding-bottom: em(7);
+
         cursor: pointer;
 
         :hover {
@@ -132,11 +134,11 @@ body { margin:0; padding:0; }
 .vdf-marker {
 
     &-main {
-        z-index: 5000 !important;  //overrides inline-style
+        z-index: 3000 !important;  //overrides inline-style
     }
 
     &-secondary {
-        z-index: 3000 !important; //overrides inline-style
+        z-index: 5000 !important; //overrides inline-style
         display: none;
 
         margin-left: -43px !important;
@@ -147,9 +149,9 @@ body { margin:0; padding:0; }
 .marker-main {
     background: $color-white;
     border-radius: 50%;
-    width: em(180);
-    height: em(180);
-    padding: 30px 10px;
+    width: em(155);
+    height: em(155);
+    padding: 30px 2px;
     text-align: center;
     position: relative;
     color: #000000;

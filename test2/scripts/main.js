@@ -65,7 +65,9 @@
 
                     return 'vdf-marker-secondary';
 
-                } else {
+                }
+
+                else {
                     return 'vdf-marker';
                 }
             }
@@ -172,9 +174,9 @@
         $('.vdf-marker-secondary').hide();
 
         setTimeout(function() {
-
+            console.log('ready');
             $('.vdf-marker').remove();
-        }, 20);
+        }, 300);
     });
 
 
