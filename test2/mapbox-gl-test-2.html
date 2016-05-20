@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='topoJson/minimap.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.0.1/mapbox-gl-compare.css' type='text/css' />
+    <style>
+        body { margin:0; padding:0; }
+        #main-map { position:absolute; top:0; bottom:0; width:100%; }
+
+        body {
+            overflow: hidden;
+        }
+
+        body * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #minimap {
+            width: 850px;
+            height: 22%;
+            right: 30px;
+            top: 73%;
+            z-index: 5000;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id='map'  class='map'></div>
+
+<div id='minimap' class='map'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoieW96em8iLCJhIjoiY2lvYTdtOTR5MDA4bHc2bHkzdGV4a2UyciJ9.L3YfGHN-2yVbpjQPvdrY7Q';
+
+
+    var miniMap = new mapboxgl.Map({
+        container: 'minimap',
+        style: 'mapbox://styles/mapbox/dark-v8',
+        center: [0, 0],
+        zoom: 0
+    });
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'topoJson/lightStyle.json',
+        center: [53, -1],
+        zoom: 5
+    });
+
+    map.on('load', function () {
+        map.addSource('maine', {
+            'type': 'geojson',
+            'data': 'topoJson/vodafoneCoverageGeoJson.json'
+        });
+
+        map.addLayer({
+            'id': 'route',
+            'type': 'fill',
+            'source': 'maine',
+            'layout': {},
+            'paint': {
+                'fill-color': '#a41309',
+                'fill-opacity': 0.8,
+                'fill-outline-color': '#9ba1a5'
+            }
+        });
+    });
+
+    new mapboxgl.Compare(map, miniMap);
+</script>
+
+</body>
+</html>

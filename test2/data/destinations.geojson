@@ -1,0 +1,710 @@
+{
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:EPSG::37001"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Albania",
+                "sr_brk_a3": "ALB",
+                "sr_adm0_a3": "ALB",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.053819505765716,
+                    41.14248112870132
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Andorra",
+                "sr_brk_a3": "AND",
+                "sr_adm0_a3": "AND",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    1.560756241207741,
+                    42.541326524999306
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Austria",
+                "sr_brk_a3": "AUT",
+                "sr_adm0_a3": "AUT",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.130672916921753,
+                    47.58565692342842
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Belgium",
+                "sr_brk_a3": "BEL",
+                "sr_adm0_a3": "BEL",
+                "scalerank": 0,
+                "destination": "secondary",
+                "content": {
+                    "copy": "The best subterranean attractions in Belgium",
+                    "href": "#"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    50.561432,
+                    4.921875
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Belarus",
+                "sr_brk_a3": "BLR",
+                "sr_adm0_a3": "BLR",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.03356645962458,
+                    53.531880481998826
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Bulgaria",
+                "sr_brk_a3": "BGR",
+                "sr_adm0_a3": "BGR",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.21749754347701,
+                    42.76853191221812
+                ]
+            }
+        },
+         {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Croatia",
+                "sr_brk_a3": "HRV",
+                "sr_adm0_a3": "HRV",
+                "scalerank": 0,
+                "destination": "secondary",
+                "content" : {
+                    "copy": "Undiscovered island idylls",
+                    "href": "#"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.100000,
+                    15.200000
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Czech Rep.",
+                "sr_brk_a3": "CZE",
+                "sr_adm0_a3": "CZE",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    15.31410310187681,
+                    49.73244820552043
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Denmark",
+                "sr_brk_a3": "DNK",
+                "sr_adm0_a3": "DNK",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    8.811534049456952,
+                    55.80111302894329
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Estonia",
+                "sr_brk_a3": "EST",
+                "sr_adm0_a3": "EST",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.831378152679747,
+                    58.68416902687926
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Finland",
+                "sr_brk_a3": "FIN",
+                "sr_adm0_a3": "FIN",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.359754576812406,
+                    61.92095036226959
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "France",
+                "sr_brk_a3": "FXX",
+                "sr_adm0_a3": "FRA",
+                "scalerank": 0,
+                "destination": "main",
+                "content" : {
+                    "copy": "France's European Championship cities",
+                    "href": "https://en.wikipedia.org/wiki/S%C3%A9nanque_Abbey"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    2.449486512892406,
+                    46.62237366531258
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Germany",
+                "sr_brk_a3": "DEU",
+                "sr_adm0_a3": "DEU",
+                "scalerank": 0,
+                "destination": "main",
+                "content" : {
+                    "copy": "Why Hamburg is the new Berlin",
+                    "href": "https://en.wikipedia.org/wiki/Autobahn"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    10.370787457775123,
+                    51.0871017663336
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Greece",
+                "sr_brk_a3": "GRC",
+                "sr_adm0_a3": "GRC",
+                "scalerank": 0,
+                "destination": "main",
+                "content" : {
+                    "copy": "The secret islands without the crowds",
+                    "href": "#"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.581857843165096,
+                    39.47499718996852
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Italy",
+                "sr_brk_a3": "ITX",
+                "sr_adm0_a3": "ITA",
+                "scalerank": 0,
+                "destination": "main",
+                "content" : {
+                    "copy": "Why Florence is the new fashion capital",
+                    "href": "https://en.wikipedia.org/wiki/Florence"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.581412900784926,
+                    45.23561638578775
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Latvia",
+                "sr_brk_a3": "LVA",
+                "sr_adm0_a3": "LVA",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.40511559780674,
+                    56.633417305664295
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Liechtenstein",
+                "sr_brk_a3": "LIE",
+                "sr_adm0_a3": "LIE",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.540900288917385,
+                    47.13820642948332
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Lithuania",
+                "sr_brk_a3": "LTU",
+                "sr_adm0_a3": "LTU",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.894068429714423,
+                    55.326734202421676
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Luxembourg",
+                "sr_brk_a3": "LUX",
+                "sr_adm0_a3": "LUX",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    6.071789535958487,
+                    49.76679437835804
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Macedonia",
+                "sr_brk_a3": "MKD",
+                "sr_adm0_a3": "MKD",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.683830560931824,
+                    41.5950040310114
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Moldova",
+                "sr_brk_a3": "MDA",
+                "sr_adm0_a3": "MDA",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.461397116284047,
+                    47.1951013921157
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Monaco",
+                "sr_brk_a3": "MCO",
+                "sr_adm0_a3": "MCO",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    7.398448957853304,
+                    43.74614075179443
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Holland",
+                "sr_brk_a3": "NLX",
+                "sr_adm0_a3": "NLD",
+                "scalerank": 0,
+                "destination": "secondary",
+                "content": {
+                    "copy": "The trendiest places to visit in Amsterdam",
+                    "href": "#"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.322768998090964,
+                    52.17235334752911
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Norway",
+                "sr_brk_a3": "NOW",
+                "sr_adm0_a3": "NOR",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    11.46433556363553,
+                    61.443130264650165
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Poland",
+                "sr_brk_a3": "POL",
+                "sr_adm0_a3": "POL",
+                "scalerank": 0,
+                "destination": "secondary"
+
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.394323120415834,
+                    52.12477121721804
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Portugal",
+                "sr_brk_a3": "PRX",
+                "sr_adm0_a3": "PRT",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -7.978030682170072,
+                    39.678798984485695
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Romania",
+                "sr_brk_a3": "ROU",
+                "sr_adm0_a3": "ROU",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.972949302568395,
+                    45.85346826984494
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "San Marino",
+                "sr_brk_a3": "SMR",
+                "sr_adm0_a3": "SMR",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    12.44223694457952,
+                    43.936454245367315
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Slovakia",
+                "sr_brk_a3": "SVK",
+                "sr_adm0_a3": "SVK",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.480382926131313,
+                    48.70493508808403
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Slovenia",
+                "sr_brk_a3": "SVN",
+                "sr_adm0_a3": "SVN",
+                "scalerank": 0,
+                "destination": "secondary",
+                "content" : {
+                    "copy": "Touch of mistery on a pure breed stallion",
+                    "href": "https://en.wikipedia.org/wiki/Lipizzan"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.940281412357479,
+                    46.063557686138495
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Spain",
+                "sr_brk_a3": "ESY",
+                "sr_adm0_a3": "ESP",
+                "scalerank": 0,
+                "destination": "secondary",
+                "content" : {
+                    "copy": "The secret hideaways of the Balearics",
+                    "href": "https://en.wikipedia.org/wiki/Cava_(Spanish_wine)"
+                }
+               
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -3.566448279164604,
+                    40.40029669653546
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Sweden",
+                "sr_brk_a3": "SWE",
+                "sr_adm0_a3": "SWE",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.37197706578911,
+                    60.594601666933556
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Switzerland",
+                "sr_brk_a3": "CHE",
+                "sr_adm0_a3": "CHE",
+                "scalerank": 0,
+                "destination": "secondary",
+                "content" : {
+                    "copy": "Lose yourself in the scenery",
+                    "href": " https://en.wikipedia.org/wiki/Switzerland"
+                }
+               
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    8.210718017522652,
+                    46.97259012423501
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Turkey",
+                "sr_brk_a3": "TUR",
+                "sr_adm0_a3": "TUR",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.423547472038365,
+                    38.98957968355569
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Ukraine",
+                "sr_brk_a3": "UKR",
+                "sr_adm0_a3": "UKR",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.639515624346757,
+                    50.049110409418006
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "United Kingdom",
+                "sr_brk_a3": "ENG",
+                "sr_adm0_a3": "GBR",
+                "scalerank": 0,
+                "destination": "main",
+                "content" : {
+                    "copy": "Visit Britain's sandy beaches",
+                    "href": "#"
+                }
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -1.460467598400783,
+                    52.601885382104854
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Vatican",
+                "sr_brk_a3": "VAT",
+                "sr_adm0_a3": "VAT",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    12.453364357237705,
+                    41.90332693360966
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Montenegro",
+                "sr_brk_a3": "MNE",
+                "sr_adm0_a3": "MNE",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    19.23849855986083,
+                    42.78581616068743
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Kosovo",
+                "sr_brk_a3": "B57",
+                "sr_adm0_a3": "KOS",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    20.87374334198182,
+                    42.57288318431165
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "sr_subunit": "Greenland",
+                "sr_brk_a3": "GRX",
+                "sr_adm0_a3": "GRL",
+                "scalerank": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -33.16431083187922,
+                    75.86980786803883
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Untapped Destinations</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.css' rel='stylesheet' />
+
+    <link href='css/main.css' rel='stylesheet'/>
+</head>
+<body>
+
+    <div id='map'></div>
+    <aside class="destinations">
+        <div class="destinations__logo">
+            &nbsp;
+        </div>
+        <div class="destinations__description">
+            Use this map to explore all the places you can enjoy free roaming with Vodafone... then get some inspiration for your next holiday by clicking on each destination for a guide to its undiscovered highlights
+
+        </div>
+        <div class="destinations__legend">
+            <ul>
+                <li>
+                    <span class="roaming--available"></span>Vodafone roaming available
+                </li>
+                <li>
+                    <span class="roaming--unavailable"></span>Vodafone roaming available
+                </li>
+            </ul>
+
+            <button class="roaming__coverage">See full coverage</button>
+        </div>
+        <div class="destinations__minimap">
+            <div class="minimap"></div>
+        </div>
+    </aside>
+    <footer>
+        <ul class="footer__branding">
+            <li>
+                <a href="#" class="footer__branding--vodafone">&nbsp;</a>
+            </li>
+            <li>
+                <a href="#" class="footer__branding--telegraph">&nbsp;</a>
+            </li>
+        </ul>
+
+        <ul class="footer__social">
+            <li>
+                <a href="#" class="footer__social--twitter">&nbsp;</a>
+            </li>
+            <li>
+                <a href="#" class="footer__social--facebook">&nbsp;</a>
+            </li>
+        </ul>
+    </footer>
+
+
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.3/jquery.slim.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-zoomslider/v0.7.0/L.Control.Zoomslider.js'></script>
+    <script src='scripts/main.js'></script>
+</body>
+</html>

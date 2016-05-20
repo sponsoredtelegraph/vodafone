@@ -500,16 +500,22 @@
         }
 
         var mainMarkers = layer.selectAll('circle.main-marker').data( data, options.key );
+        var testMarkers = layer.selectAll('.test-marker').data( data, options.key );
         var mainMarkersText = layer.selectAll('.main-marker-text').data( data, options.key );
         var mainMarkersHeading = layer.selectAll('.main-marker-heading').data( data, options.key );
         var mainMarkersLink = layer.selectAll('.main-marker-link').data( data, options.key );
         var mainMarkersPin = layer.selectAll('.main-marker-pin').data( data, options.key );
 
-        console.log('data ', data, options.key);
 
-        mainMarkers
+
+
+
+
+
+
+    mainMarkers
             .enter()
-            .append('svg:circle')
+            .insert('svg:circle')
             .attr('class', function(datum) {
                 if(datum.main) {
                     return 'main-marker';
@@ -566,11 +572,7 @@
             })
             .style('fill', function ( datum ) {
                 return 'rgba(255, 255, 255, .9)';
-            });
-
-        mainMarkersText
-            .enter()
-            .append('text')
+            }).insert('text')
             .attr('class', function(datum) {
                 if(datum.main) {
                     return 'main-marker-text';
@@ -1702,7 +1704,7 @@
             layer = this.svg.insert('g', ':first-child')
         }
         else {
-            layer = this.svg.append('g')
+            layer = this.svg.append('g') 
         }
         return layer.attr('id', id || '')
             .attr('class', className || '');

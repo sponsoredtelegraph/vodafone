@@ -215,31 +215,29 @@ var defaults = defaults || {};
 
     Zoom.prototype._animateMainMarkersIn = function(scale) {
 
-        console.log('scale ', scale);
-
         var mainMarkers = d3.selectAll('.main-marker'),
+            testMarkers = d3.select('.test-marker'),
             mainMarkersGroup = d3.selectAll('.mainMarkers'),
             mainMarkersText = d3.selectAll('.main-marker-text'),
             mainMarkersHeading = d3.selectAll('.main-marker-heading'),
             mainMarkersLink = d3.selectAll('.main-marker-link'),
             mainMarkersPin = d3.selectAll('.main-marker-pin');
 
-        
-        mainMarkersGroup.transition()
-            .duration(defaults.time)
-            .attr('transform', 'translate(0,0)scale(' + scale + ')rotate(180)');
-
-
-
         var delay = function(d, i) { return i * defaults.time; };
+
+        //
+        // testMarkers.transition()
+        //     .duration(100*defaults.time)
+        //     .attr('transform', 'scale(' + scale/1.5 + ')');
+
+
         mainMarkers.transition()
             .duration(defaults.time *1.2)
             .attr('r', function ( datum ) {
-                return 46 / scale;
+                return 23;
             })
             .attr('transform', 'translate( 0, ' + eval(0 - scale/1.5) +' )')
 
-            .style('fill-opacity', 1)
             .style('fill-opacity', 1)
             .ease('cube')
             .delay(delay);
@@ -396,7 +394,7 @@ Zoom.prototype._update = function(translate, scale) {
         .translate(translate)
         .scale(scale);
 
-    this.datamap.svg.selectAll('g')
+    this.datamap.svg.selectAll(['.datamaps-subunits', '.bubbles', '.mainMarkers', '.secondaryMarkers'])
         .attr('transform', 'translate(' + translate + ')scale(' + scale + ')');
 
     this._displayPercentage(scale);
@@ -475,8 +473,6 @@ Zoom.prototype._getNextScale = function(direction) {
 };
 
 function Datamap() {
-
-    console.log('this is', this);
     this.$container = $(defaults.selectors.map);
     this.instance = new Datamaps({
         scope: 'world',
@@ -622,12 +618,12 @@ function Datamap() {
         },
 
         data: {
-            'ALA': {fillKey: 'ALA'},
-            'ALB': {fillKey: 'ALB'},
+            'ALA': {fillKey: 'ALA'}, //?
+            'ALB': {fillKey: 'ALB'}, //?
             'AND': {fillKey: 'AND'},
             'AUT': {fillKey: 'AUT'},
             'BLR': {fillKey: 'BLR'},
-            'BEL': {fillKey: 'BEL'},
+            'BEL': {fillKey: 'BEL'}, //?
             'BIH': {fillKey: 'BIH'},
             'BGR': {fillKey: 'BGR'},
             'HRV': {fillKey: 'HRV'},
@@ -697,16 +693,12 @@ var redMap = new Datamap(),
     function getBubbleData() {
         $.getJSON('scripts/dataMock.json', function(data) {
             bubblesArr.push(data);
-            console.log(bubblesArr);
 
             return bubblesArr;
         });
     }
 
     getBubbleData();
-
-    console.log('the bubble: ', getBubbleData() );
-
 
     var hardcodedData = [
         {
@@ -833,8 +825,6 @@ var redMap = new Datamap(),
     redMap.instance.secondaryMarkers(hardcodedData);
 
     window.addEventListener('resize', function() {
-
-        console.log('resize ', redMap.instance.resize);
         redMap.instance.resize();
     });
 

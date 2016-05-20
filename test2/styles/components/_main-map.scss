@@ -1,0 +1,213 @@
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+.mapbox-logo {display: none !important;}
+.leaflet-clickable {
+    stroke: #9ba1a5;
+    stroke-width: 1;
+    stroke-opacity: 1;
+    fill: #a41309;
+    fill-opacity: 0.8;
+}
+
+.destinations {
+    width: 30em;
+    padding: 30px;
+    position: absolute;
+    top: 3em;
+    height: 94vh;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.9);
+
+    &__logo {
+        background: url($uri-destinations) no-repeat;
+        background-size: contain;
+        display: block;
+        width: 100%;
+        width: 100%;
+        height: 84px;
+    }
+
+    &__description {
+        color: $color-white;
+        border-bottom: 1px solid $color-grey;
+        border-top: 1px solid $color-grey;
+        padding: em(2*$global-padding) 0;
+        margin: em(2*$global-padding) 0;
+        font-family: Arial;
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    &__legend {
+
+        ul {
+            padding-left: 0;
+        }
+
+        ul li {
+            list-style: none;
+            color: $color-white;
+            font-family: Arial;
+            font-size: 12px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .roaming--available,
+        .roaming--unavailable {
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            top: -5px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .roaming--available {
+            background-color: $color-red;
+        }
+
+        .roaming--unavailable {
+            background-color: $color-grey;
+        }
+    }
+
+    .roaming__coverage {
+        width: 100%;
+        background-color: $color-white;
+        border: none;
+        padding-top: em(5);
+        padding-bottom: em(5);
+        cursor: pointer;
+
+        :hover {
+            background-color: $color-grey-light;
+        }
+    }
+}
+
+
+
+.leaflet-popup-content-wrapper,
+.map-legends,
+.map-tooltip {
+    background: rgba(0, 0, 0, .8);
+    border-radius: 0;
+    box-shadow: none;
+    color: $color-white;
+}
+
+.leaflet-popup {
+    bottom: 0 !important; //overrides inline style
+
+    &-content {
+        text-align: center;
+        padding: 15px 5px 5px;
+        font-family: Verdana;
+        font-weight: bold;
+        font-size: 14px
+    }
+
+    .leaflet-popup-close-button {
+        display: none;
+    }
+
+    .content-heading {
+        text-transform: uppercase;
+        display: block;
+        border-bottom: 1px solid $color-grey;
+        margin-top: -9px;
+        font-family: Arial;
+        font-weight: normal;
+        font-size: 11px
+    }
+}
+
+.leaflet-popup-tip {
+    border-top: 10px solid rgba(0, 0, 0, 0.8);
+}
+
+.vdf-marker {
+
+    &-main {
+        z-index: 5000 !important;  //overrides inline-style
+    }
+
+    &-secondary {
+        z-index: 3000 !important; //overrides inline-style
+    }
+}
+
+.marker-main {
+    background: $color-white;
+    border-radius: 50%;
+    width: em(180);
+    height: em(180);
+    padding: 30px 10px;
+    text-align: center;
+    position: relative;
+    color: #000000;
+
+    .main-pin {
+        background: url($uri-main-pin) no-repeat;
+        background-size: cover;
+        display: block;
+        width: 30px;
+        height: 37px;
+        position: absolute;
+        top: -10px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    .main-subunit {
+        display: block;
+        font-family: Verdana;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 0 0 em($global-padding/2);
+        line-height: 1;
+    }
+
+    .main-copy {
+        line-height: 1;
+        font-family: Arial;
+        font-size: 11px;
+        margin: em($global-padding/2) 0;
+        display: block;
+    }
+    .main-href {
+        background: url($uri-plus) no-repeat;
+        background-size: contain;
+        background-color: #120100;
+        border-radius: 50%;
+        display: block;
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        bottom: 10px;
+        transition: all 0.1s ease-in;
+
+        &:hover {
+            width: 23px;
+            height: 23px;
+        }
+    }
+}
+
+.leaflet-control-minimap {
+    bottom: 37px;
+    right: 30px;
+    border: none;
+    border-radius: 0;
+}
+
+
+
+
