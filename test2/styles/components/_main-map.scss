@@ -5,8 +5,9 @@ body { margin:0; padding:0; }
     stroke: #9ba1a5;
     stroke-width: 1;
     stroke-opacity: 1;
-    fill: #a41309;
+    fill: #C80E00;
     fill-opacity: 0.8;
+    background-blend-mode: multiply;
 }
 
 .destinations {
@@ -14,7 +15,7 @@ body { margin:0; padding:0; }
     padding: 30px;
     position: absolute;
     top: 3em;
-    height: 89vh;
+    height: 61vh;
     right: 15px;
     background: rgba(0, 0, 0, 0.9);
 
@@ -126,8 +127,6 @@ body { margin:0; padding:0; }
 }
 
 .popup-marker-secondary {
-    position: absolute;
-    right: 0;
     padding: 15px 5px 5px;
     background-color: rgba(0, 0, 0, .8);
     border-radius: 0;
@@ -137,17 +136,56 @@ body { margin:0; padding:0; }
     color: $color-white;
 
     &-tip-container {
-        //width: 20px;
+        width: 20px;
         height: 20px;
         margin: 0 auto;
         position: relative;
-        bottom: -52px;
     }
 
     &-tip {
         width: 0;
         height: 0;
+        margin: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid rgba(0, 0, 0, 0.8);
+    }
+}
+
+.secondary-marker {
+    &-content {
+        padding: 15px 5px 5px;
+        background: rgba(0, 0, 0, .8);
+        border-radius: 0;
+        box-shadow: none;
+        color: $color-white;
+        text-align: center;
+        min-width: 100px;
+        font-family: Verdana;
+        font-weight: bold;
+    }
+
+    &-content-heading {
+        text-transform: uppercase;
+        display: block;
+        border-bottom: 1px solid $color-grey;
+        margin-top: -9px;
+        font-family: Arial;
+        font-weight: normal;
+        font-size: 11px
+    }
+
+    &-tip-container {
+        width: 20px;
+        height: 20px;
         margin: 0 auto;
+        position: relative;
+    }
+
+    &-tip {
+        width: 0;
+        height: 0;
+        margin: 0;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
         border-top: 10px solid rgba(0, 0, 0, 0.8);
@@ -163,16 +201,7 @@ body { margin:0; padding:0; }
     &-secondary {
         z-index: 5000 !important; //overrides inline-style
         display: none;
-
-        //margin-left: -49px !important;
-        margin-top: -41px !important;
     }
-}
-
-.leaflet-popup {
-    left: 0;
-    right: 0;
-    margin: 0 auto;
 }
 
 .marker-main {
@@ -182,7 +211,7 @@ body { margin:0; padding:0; }
     height: em(155);
     padding: 30px 2px;
     text-align: center;
-    position: relative;
+    position: absolute;
     color: #000000;
 
     .main-pin {
@@ -213,6 +242,7 @@ body { margin:0; padding:0; }
         font-size: 11px;
         margin: em($global-padding/2) 0;
         display: block;
+        font-weight: normal;
     }
     .main-href {
         background: url($uri-plus) no-repeat;
@@ -236,8 +266,16 @@ body { margin:0; padding:0; }
     }
 }
 
+
+.leaflet-popup-content {
+    .marker-main {
+        right: -32px;
+        top: -15px;
+    }
+}
+
 .leaflet-control-minimap {
-    bottom: 97px;
+    top: 44vh;
     right: 30px;
     border: none;
     border-radius: 0;
