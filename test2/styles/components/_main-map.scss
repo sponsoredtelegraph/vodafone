@@ -90,26 +90,20 @@ body { margin:0; padding:0; }
     }
 }
 
-
-
-.leaflet-popup-content-wrapper,
-.map-legends,
-.map-tooltip {
-    background: rgba(0, 0, 0, .8);
-    border-radius: 0;
+.leaflet-popup-content-wrapper {
+    background: transparent;
+    border-radius: 50%;
     box-shadow: none;
-    color: $color-white;
 }
 
 .leaflet-popup {
-    bottom: 0 !important; //overrides inline style
+    bottom: -30px !important; //overrides inline style
 
     &-content {
         text-align: center;
-        padding: 15px 5px 5px;
+        padding: 0;
         font-family: Verdana;
         font-weight: bold;
-        font-size: 14px
     }
 
     .leaflet-popup-close-button {
@@ -128,7 +122,36 @@ body { margin:0; padding:0; }
 }
 
 .leaflet-popup-tip {
-    border-top: 10px solid rgba(0, 0, 0, 0.8);
+    border-top: none;
+}
+
+.popup-marker-secondary {
+    position: absolute;
+    right: 0;
+    padding: 15px 5px 5px;
+    background-color: rgba(0, 0, 0, .8);
+    border-radius: 0;
+    box-shadow: none;
+    width: auto;
+    white-space: nowrap;
+    color: $color-white;
+
+    &-tip-container {
+        //width: 20px;
+        height: 20px;
+        margin: 0 auto;
+        position: relative;
+        bottom: -52px;
+    }
+
+    &-tip {
+        width: 0;
+        height: 0;
+        margin: 0 auto;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid rgba(0, 0, 0, 0.8);
+    }
 }
 
 .vdf-marker {
@@ -141,9 +164,15 @@ body { margin:0; padding:0; }
         z-index: 5000 !important; //overrides inline-style
         display: none;
 
-        margin-left: -43px !important;
-        margin-top: -29px !important;
+        //margin-left: -49px !important;
+        margin-top: -41px !important;
     }
+}
+
+.leaflet-popup {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 
 .marker-main {

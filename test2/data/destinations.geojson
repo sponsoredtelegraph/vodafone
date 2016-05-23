@@ -7,6 +7,22 @@
         }
     },
     "features": [
+     	{
+                "type": "Feature",
+                "properties": {
+                    "sr_subunit": "Aland Islands",
+                    "sr_brk_a3": "ALA",
+                    "sr_adm0_a3": "ALA",
+                    "scalerank": 0
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        19.9676513671875,
+                        60.21799073323445
+                    ]
+                }
+		},
         {
             "type": "Feature",
             "properties": {
@@ -82,6 +98,22 @@
             }
         },
         {
+			"type": "Feature",
+			"properties": {
+				"sr_subunit": "Bosnia and Herzegovina",
+				"sr_brk_a3": "BIH",
+				"sr_adm0_a3": "BIH",
+				"scalerank": 0
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					17.808837890625,
+					44.134913443750726
+				]
+			}
+			},
+        {
             "type": "Feature",
             "properties": {
                 "sr_subunit": "Belarus",
@@ -113,6 +145,24 @@
                 ]
             }
         },
+
+			 {
+				"type": "Feature",
+				"properties": {
+					"sr_subunit": "Cyprus",
+					"sr_brk_a3": "CYP",
+					"sr_adm0_a3": "CYP",
+					"scalerank": 0
+				},
+				"geometry": {
+					"type": "Point",
+					"coordinates": [
+						33.134765625,
+						34.95799531086792
+					]
+				}
+			},
+
          {
             "type": "Feature",
             "properties": {
@@ -137,7 +187,7 @@
         {
             "type": "Feature",
             "properties": {
-                "sr_subunit": "Czech Rep.",
+                "sr_subunit": "Czech Republic",
                 "sr_brk_a3": "CZE",
                 "sr_adm0_a3": "CZE",
                 "scalerank": 0,
@@ -203,6 +253,24 @@
                 ]
             }
         },
+
+			{
+				"type": "Feature",
+				"properties": {
+					"sr_subunit": "Faroe Islands",
+					"sr_brk_a3": "FRO",
+					"sr_adm0_a3": "FRO",
+					"scalerank": 0
+				},
+				"geometry": {
+					"type": "Point",
+					"coordinates": [
+						-6.8994140625,
+						62.062733258846514
+					]
+				}
+			},
+
         {
             "type": "Feature",
             "properties": {
@@ -266,6 +334,38 @@
                 ]
             }
         },
+		{
+			"type": "Feature",
+			"properties": {
+				"sr_subunit": "Gibraltar",
+				"sr_brk_a3": "GIB",
+				"sr_adm0_a3": "GIB",
+				"scalerank": 0
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-5.346221923828125,
+					36.13565654678543
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"sr_subunit": "Hungary",
+				"sr_brk_a3": "HUN",
+				"sr_adm0_a3": "HUN",
+				"scalerank": 0
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					19.248046875,
+					47.040182144806664
+				]
+			}
+		},
         {
             "type": "Feature",
             "properties": {
@@ -287,6 +387,24 @@
                 ]
             }
         },
+
+         {
+			"type": "Feature",
+			"properties": {
+				"sr_subunit": "Iceland",
+				"sr_brk_a3": "ISL",
+				"sr_adm0_a3": "ISL",
+				"scalerank": 0
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-18.6328125,
+					64.92354174306496
+				]
+			}
+		},
+
         {
             "type": "Feature",
             "properties": {
@@ -372,6 +490,23 @@
                 ]
             }
         },
+
+        {
+			"type": "Feature",
+			"properties": {
+				"sr_subunit": "Malta",
+				"sr_brk_a3": "MLT",
+				"sr_adm0_a3": "MLT",
+				"scalerank": 0
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					14.437408447265623,
+					35.905736972317364
+				]
+			}
+		},
         {
             "type": "Feature",
             "properties": {
@@ -506,6 +641,23 @@
                 ]
             }
         },
+
+         {
+			"type": "Feature",
+			"properties": {
+				"sr_subunit": "Serbia",
+				"sr_brk_a3": "SRB",
+				"sr_adm0_a3": "SRB",
+				"scalerank": 0
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					20.7421875,
+					44.08758502824518
+				]
+			}
+		},
         {
             "type": "Feature",
             "properties": {
@@ -598,8 +750,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    8.210718017522652,
-                    46.97259012423501
+                    8.0419921875,
+                    46.92025531537451
                 ]
             }
         },

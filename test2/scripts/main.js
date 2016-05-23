@@ -1,6 +1,8 @@
 (function(){
     L.mapbox.accessToken = 'pk.eyJ1IjoieW96em8iLCJhIjoiY2lvYTdtOTR5MDA4bHc2bHkzdGV4a2UyciJ9.L3YfGHN-2yVbpjQPvdrY7Q';
 
+    var vdfMap = vdfMap || {};
+
     var map = L.mapbox
             .map('map', 'mapbox.light', {attributionControl: false, zoomControl: false, minZoom: 3, maxZoom: 8})
             .setView([44, 16], 5);
@@ -38,8 +40,11 @@
                         testSecondaryMarkerHtml = '<div class="leaflet-popup  leaflet-zoom-animated">' +
                         '<div class="leaflet-popup-content-wrapper">' +
                         '<div class="leaflet-popup-content">' +
-                        '<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>' +
-                            feature.properties.sr_subunit +
+                            '<div class="popup-marker-secondary">' +
+                            '<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>'
+                            + feature.properties.sr_subunit +
+                            '</div>'
+                            + '<div class="popup-marker-secondary-tip-container"><div class="popup-marker-secondary-tip"></div></div>' +
                     '</div>' +
                             '</div>' +
                     '<div class="leaflet-popup-tip-container">' +
@@ -57,14 +62,10 @@
             function setClassName() {
                 if ( feature.properties.destination
                     && feature.properties.destination === 'main') {
-
                     return 'vdf-marker-main';
-
                 } else if ( feature.properties.destination
                     && feature.properties.destination === 'secondary') {
-
                     return 'vdf-marker-secondary';
-
                 }
 
                 else {
@@ -82,45 +83,57 @@
         }
     }).addTo(map);
 
-
-
     var mainMap = L.mapbox.featureLayer()
         .loadURL('data/destinations.geojson')
         .on('ready', function(e) {
 
             gj.addData(this.getGeoJSON());
 
-
             this.eachLayer(function(marker) {
                 if (marker.toGeoJSON().properties.destination === 'main') {
+
+                    var feature = marker.toGeoJSON();
 
                     marker._icon.src = 'images/dot.svg';
                     marker._icon.class = 'main-marker-pin';
 
+                    marker.bindPopup(
+                        '<div class="marker-main">' +
+                        '<span class="main-pin">&nbsp;</span>' +
+                        '<span class="main-subunit">' + feature.properties.sr_subunit + '</span>' +
+                        '<p class="main-copy">' + feature.properties.content.copy + '</p>' +
+                        '<a class="main-href" href="' + feature.properties.content.href + '">&nbsp</a>'
+                    );
+
+
                 } else if (marker.toGeoJSON().properties.destination === 'secondary'){
 
-                    marker.setIcon(L.mapbox.marker.icon({
-                        'marker-color': '#88ff88',
-                        'marker-size': 'large'
-                    }));
+                    // Bind a popup to each icon based on the same properties
+                    // marker.bindPopup('<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>' + marker.toGeoJSON().properties.sr_subunit);
+
+                    marker.bindPopup('<div class="popup-marker-secondary">' +
+                        '<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>'
+                        + marker.toGeoJSON().properties.sr_subunit +
+                        '</div>'
+                        + '<div class="popup-marker-secondary-tip-container"><div class="popup-marker-secondary-tip"></div></div>'
+                    );
+
 
                     marker._icon.src = 'images/dot.svg';
 
                 } else {
                     marker.setIcon(L.mapbox.marker.icon({}));
-                    marker._icon.src = 'images/dot.svg';
-                    
-                }
-                // Bind a popup to each icon based on the same properties
-                marker.bindPopup('<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>' + marker.toGeoJSON().properties.sr_subunit);
+                    marker._icon.src = 'images/empty.svg';
 
+                }
             });
         }).addTo(map);
 
     mainMap.on('mouseover', function(e) {
         var destination = e.layer.feature.properties.destination;
         if (!destination) {
-            e.layer.openPopup();
+            // e.layer.openPopup();
+            return;
         }
 
         if (map.getZoom() < 5 &&  destination === 'main') {
@@ -169,8 +182,6 @@
         })
             .addTo(map);
 
-
-        // $('.vdf-marker-main').hide();
         $('.vdf-marker-secondary').hide();
 
         setTimeout(function() {
@@ -183,20 +194,24 @@
     map.on('zoomend', function() {
 
         if (map.getZoom() >= 5) {
-
-            $('.vdf-marker-main').show('slow');
-
+            $('.vdf-marker-main').fadeIn('fast');
         } else {
-            $('.vdf-marker-main').hide('slow');
+            $('.vdf-marker-main').fadeOut('fast');
         }
 
         if (map.getZoom() >= 6) {
-            $('.vdf-marker-secondary').show('slow');
-
+            $('.vdf-marker-secondary').fadeIn('fast');
         } else {
-            $('.vdf-marker-secondary').hide('slow');
+            $('.vdf-marker-secondary').fadeOut('fast');
         }
     });
+
+
+    $('.vdf-marker-secondary').each(function(index) {
+        $(this).delay(400*index).fadeIn(300);
+    });
+
+
 
     $('.roaming__coverage').on('click', function(){
         map.setView([55, -8], 3);

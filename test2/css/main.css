@@ -145,22 +145,18 @@ body {
     .destinations .roaming__coverage :hover {
       background-color: #B1B8BD; }
 
-.leaflet-popup-content-wrapper,
-.map-legends,
-.map-tooltip {
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 0;
-  box-shadow: none;
-  color: #FFFFFF; }
+.leaflet-popup-content-wrapper {
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: none; }
 
 .leaflet-popup {
-  bottom: 0 !important; }
+  bottom: -30px !important; }
   .leaflet-popup-content {
     text-align: center;
-    padding: 15px 5px 5px;
+    padding: 0;
     font-family: Verdana;
-    font-weight: bold;
-    font-size: 14px; }
+    font-weight: bold; }
   .leaflet-popup .leaflet-popup-close-button {
     display: none; }
   .leaflet-popup .content-heading {
@@ -173,21 +169,48 @@ body {
     font-size: 11px; }
 
 .leaflet-popup-tip {
-  border-top: 10px solid rgba(0, 0, 0, 0.8); }
+  border-top: none; }
+
+.popup-marker-secondary {
+  position: absolute;
+  right: 0;
+  padding: 15px 5px 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0;
+  box-shadow: none;
+  width: auto;
+  white-space: nowrap;
+  color: #FFFFFF; }
+  .popup-marker-secondary-tip-container {
+    height: 20px;
+    margin: 0 auto;
+    position: relative;
+    bottom: -52px; }
+  .popup-marker-secondary-tip {
+    width: 0;
+    height: 0;
+    margin: 0 auto;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(0, 0, 0, 0.8); }
 
 .vdf-marker-main {
   z-index: 3000 !important; }
 .vdf-marker-secondary {
   z-index: 5000 !important;
   display: none;
-  margin-left: -43px !important;
-  margin-top: -29px !important; }
+  margin-top: -41px !important; }
+
+.leaflet-popup {
+  left: 0;
+  right: 0;
+  margin: 0 auto; }
 
 .marker-main {
   background: #FFFFFF;
   border-radius: 50%;
-  width: 9.875em;
-  height: 9.875em;
+  width: 9.6875em;
+  height: 9.6875em;
   padding: 30px 2px;
   text-align: center;
   position: relative;
