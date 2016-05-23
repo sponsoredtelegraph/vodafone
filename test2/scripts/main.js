@@ -130,45 +130,9 @@
 
 
 
-    var testDebounceIn = _.debounce(function(e) {
-        var destination = e.layer.feature.properties.destination;
-        console.log('ding');
 
-        if (!destination) {
-            // e.layer.openPopup();
-            return;
-        }
-
-        if (map.getZoom() < 5 &&  destination === 'main') {
-            e.layer.openPopup();
-        }
-
-        if (map.getZoom() < 6 &&  destination === 'secondary') {
-            e.layer.openPopup();
-        }
-
-    }, 100);
-
-    var testDebounceOut =  _.debounce(function(e) {
-        var destination = e.layer.feature.properties.destination;
-        console.log('dong');
-
-
-        if (!destination) {
-            e.layer.closePopup();
-        }
-
-        if (map.getZoom() < 5 && destination === 'main') {
-            e.layer.closePopup();
-        }
-
-        if (map.getZoom() < 6 && destination === 'secondary') {
-            e.layer.closePopup();
-        }
-    }, 1000);
     mainMap.on('mouseover',function(e) {
         var destination = e.layer.feature.properties.destination;
-        console.log('ding');
 
         if (!destination) {
             // e.layer.openPopup();
@@ -185,21 +149,11 @@
 
     } );
     mainMap.on('mouseout', function(e) {
-        var destination = e.layer.feature.properties.destination;
-        console.log('dong');
+        // var destination = e.layer.feature.properties.destination;
 
-
-        if (!destination) {
+        setTimeout(function() {
             e.layer.closePopup();
-        }
-
-        if (map.getZoom() < 5 && destination === 'main') {
-            e.layer.closePopup();
-        }
-
-        if (map.getZoom() < 6 && destination === 'secondary') {
-            e.layer.closePopup();
-        }
+        }, 3000);
     });
     mainMap.on('click', function(e) {
         if (e.layer.feature.properties.content) {
