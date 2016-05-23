@@ -29,25 +29,19 @@
                             && feature.properties.destination === 'secondary'
                             && feature.properties.content) {
 
-                    var secondaryMarkerHtml = '<div class="marker-secondary">' +
-                        '<span class="secondary-subunit">' + feature.properties.sr_subunit + '</span>' +
-                        '<p class="secondary-copy">' + feature.properties.content.copy + '</p>' +
-                        '<a class="secondary-href" href="' + feature.properties.content.href + '">&nbsp</a>',
-
-
-                        testSecondaryMarkerHtml = '<div class="leaflet-popup  leaflet-zoom-animated">' +
-                        '<div class="leaflet-popup-content-wrapper">' +
-                        '<div class="leaflet-popup-content">' +
-                        '<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>' +
+                    var  secondaryMarkerHtml = '<div class="secondary-marker-root">' +
+                        '<div class="secondary-marker-wrapper">' +
+                        '<div class="secondary-marker-content">' +
+                        '<span class="secondary-marker-content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>' +
                             feature.properties.sr_subunit +
                     '</div>' +
                             '</div>' +
-                    '<div class="leaflet-popup-tip-container">' +
-                        '<div class="leaflet-popup-tip"></div>' +
+                    '<div class="secondary-marker-tip-container">' +
+                        '<div class="secondary-marker-tip"></div>' +
                         '</div>' +
-                        '</div>'
+                        '</div>';
 
-                    return testSecondaryMarkerHtml;
+                    return secondaryMarkerHtml;
 
                 } else {
                     return '';

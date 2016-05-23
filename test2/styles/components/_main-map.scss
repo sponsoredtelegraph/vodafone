@@ -146,6 +146,26 @@ body { margin:0; padding:0; }
     }
 }
 
+.secondary-marker {
+    &-root {
+        background: rgba(0, 0, 0, .8);
+        border-radius: 0;
+        box-shadow: none;
+        color: $color-white;
+        text-align: center;
+    }
+
+    &-content-heading {
+        text-transform: uppercase;
+        display: block;
+        border-bottom: 1px solid $color-grey;
+        margin-top: -9px;
+        font-family: Arial;
+        font-weight: normal;
+        font-size: 11px
+    }
+}
+
 .marker-main {
     background: $color-white;
     border-radius: 50%;
