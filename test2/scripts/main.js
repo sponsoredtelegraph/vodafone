@@ -135,7 +135,6 @@
         var destination = e.layer.feature.properties.destination;
 
         if (!destination) {
-            // e.layer.openPopup();
             return;
         }
 
@@ -149,7 +148,6 @@
 
     } );
     mainMap.on('mouseout', function(e) {
-        // var destination = e.layer.feature.properties.destination;
 
         setTimeout(function() {
             e.layer.closePopup();
@@ -189,6 +187,8 @@
 
 
     map.on('zoomend', function() {
+
+        $('.leaflet-popup-content').hide();
 
         if (map.getZoom() >= 5) {
             $('.vdf-marker-main').each(function(index) {
