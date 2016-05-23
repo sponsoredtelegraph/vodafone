@@ -3,7 +3,7 @@
 
     var map = L.mapbox
             .map('map', 'mapbox.light', {attributionControl: false, zoomControl: false, minZoom: 3, maxZoom: 8})
-            .setView([49, 2], 5);
+            .setView([44, 16], 5);
 
     L.control.zoomslider().addTo(map);
 
