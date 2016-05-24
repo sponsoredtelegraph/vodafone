@@ -1,6 +1,7 @@
 body { margin:0; padding:0; }
 #map { position:absolute; top:0; bottom:0; width:100%; }
 .mapbox-logo {display: none !important;}
+
 .leaflet-clickable {
     stroke: #9ba1a5;
     stroke-width: 1;
@@ -103,7 +104,10 @@ body { margin:0; padding:0; }
     &-content {
         text-align: center;
         padding: 0;
-        font-family: Verdana;
+        font-family: engebrechtrebold;
+        font-size: 16px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
         font-weight: bold;
     }
 
@@ -112,13 +116,15 @@ body { margin:0; padding:0; }
     }
 
     .content-heading {
-        text-transform: uppercase;
+
+        text-transform: initial;
+        letter-spacing: initial;
         display: block;
         border-bottom: 1px solid $color-grey;
         margin-top: -9px;
         font-family: Arial;
         font-weight: normal;
-        font-size: 11px
+        font-size: 12px
     }
 }
 
@@ -131,7 +137,7 @@ body { margin:0; padding:0; }
     background-color: rgba(0, 0, 0, .8);
     border-radius: 0;
     box-shadow: none;
-    width: auto;
+    width: 154px; //Change this value to wrap around country name
     white-space: nowrap;
     color: $color-white;
 
@@ -160,19 +166,24 @@ body { margin:0; padding:0; }
         box-shadow: none;
         color: $color-white;
         text-align: center;
-        min-width: 100px;
-        font-family: Verdana;
+        text-transform: uppercase;
+        //min-width: 100px;
+        font-family: engebrechtrebold;
+        font-size: 16px;
+        letter-spacing: 3px;
         font-weight: bold;
+        white-space: nowrap;
     }
 
     &-content-heading {
-        text-transform: uppercase;
+        text-transform: initial;
+        letter-spacing: initial;
         display: block;
         border-bottom: 1px solid $color-grey;
         margin-top: -9px;
         font-family: Arial;
         font-weight: normal;
-        font-size: 11px
+        font-size: 12px;
     }
 
     &-tip-container {
@@ -201,6 +212,9 @@ body { margin:0; padding:0; }
     &-secondary {
         z-index: 5000 !important; //overrides inline-style
         display: none;
+        width: 154px !important; //Change this value to wrap around country name
+        margin-top: -63px !important;
+        margin-left: -75px !important;
     }
 }
 
@@ -229,7 +243,10 @@ body { margin:0; padding:0; }
 
     .main-subunit {
         display: block;
-        font-family: Verdana;
+        font-family: engebrechtrebold;
+        font-size: 16px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
         font-weight: bold;
         font-size: 16px;
         margin: 0 0 em($global-padding/2);

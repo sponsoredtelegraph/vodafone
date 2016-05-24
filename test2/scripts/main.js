@@ -3,8 +3,12 @@
 
     var vdfMap = vdfMap || {};
 
+    var southWest = L.latLng(-71.300, -165.937),
+        northEast = L.latLng(82.118, 189.843),
+        bounds = L.latLngBounds(southWest, northEast);
+
     var map = L.mapbox
-            .map('map', 'mapbox.light', {attributionControl: false, zoomControl: false, minZoom: 4, maxZoom: 7})
+            .map('map', 'mapbox.light', {attributionControl: false, zoomControl: false, minZoom: 4, maxZoom: 7, maxBounds: bounds})
             .setView([44, 16], 5);
 
     L.control.zoomslider().addTo(map);
@@ -43,16 +47,16 @@
                         '</div>' +
                         '</div>';
 
-                    setTimeout(function() {
-                        $.each($('.vdf-marker-secondary .secondary-marker-content-copy'), function() {
-                            
-                            if($(this).text().length >= 12) {
-                                $(this).parents('.vdf-marker-secondary').before().css('margin-top', '-84px');
-                            } else {
-                                $(this).parents('.vdf-marker-secondary').before().css('margin-top', '-63px');
-                            }
-                        });
-                    }, 500);
+                    // setTimeout(function() {
+                    //     $.each($('.vdf-marker-secondary .secondary-marker-content-copy'), function() {
+                    //
+                    //         if($(this).text().length >= 12) {
+                    //             $(this).parents('.vdf-marker-secondary').before().css('margin-top', '-84px');
+                    //         } else {
+                    //             $(this).parents('.vdf-marker-secondary').before().css('margin-top', '-63px');
+                    //         }
+                    //     });
+                    // }, 500);
                     
                     return secondaryMarkerHtml;
 
@@ -149,9 +153,9 @@
     } );
     mainMap.on('mouseout', function(e) {
 
-        setTimeout(function() {
-            e.layer.closePopup();
-        }, 3000);
+        // setTimeout(function() {
+        //     e.layer.closePopup();
+        // }, 3000);
     });
     mainMap.on('click', function(e) {
         if (e.layer.feature.properties.content) {
@@ -164,7 +168,7 @@
      * Minimap
      */
     map.on('ready', function() {
-        var minimap = L.mapbox.tileLayer('mapbox.light'),
+        var minimap = L.mapbox.tileLayer('mapbox.light', {noWrap: false}, {minZoom: 0, maxZoom: 4, maxBounds: bounds}),
             miniCoverage = omnivore.topojson('data/vodafoneCoverageTopoJson.json');
 
         layers = new L.LayerGroup([minimap, miniCoverage]);
@@ -172,15 +176,15 @@
         new L.Control.MiniMap(layers, {
             width: 250,
             position: 'topright',
-            aimingRectOptions : {color: "#333333", weight: 3},
-            shadowRectOptions: {color: "#c90000", weight: 1, opacity:0, fillOpacity:0}
+            aimingRectOptions: {color: "#333333", weight: 3},
+            shadowRectOptions: {color: "#c90000", weight: 1, opacity: 0, fillOpacity: 0},
+            centerFixed: [40.7842, -73.9919]
         })
             .addTo(map);
 
         $('.vdf-marker-secondary').hide();
 
         setTimeout(function() {
-            console.log('ready');
             $('.vdf-marker').remove();
         }, 300);
     });

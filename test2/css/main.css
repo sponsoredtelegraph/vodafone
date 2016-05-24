@@ -67,6 +67,11 @@ a, a:focus {
       .guider:after {
         content: '1008'; } }
 
+@font-face {
+  font-family: 'engebrechtrebold';
+  src: url("../fonts/engebrechtre_bd-webfont.woff2") format("woff2"), url("../fonts/engebrechtre_bd-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
 body {
   margin: 0;
   padding: 0; }
@@ -156,18 +161,22 @@ body {
   .leaflet-popup-content {
     text-align: center;
     padding: 0;
-    font-family: Verdana;
+    font-family: engebrechtrebold;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     font-weight: bold; }
   .leaflet-popup .leaflet-popup-close-button {
     display: none; }
   .leaflet-popup .content-heading {
-    text-transform: uppercase;
+    text-transform: initial;
+    letter-spacing: initial;
     display: block;
     border-bottom: 1px solid #B5B5B5;
     margin-top: -9px;
     font-family: Arial;
     font-weight: normal;
-    font-size: 11px; }
+    font-size: 12px; }
 
 .leaflet-popup-tip {
   border-top: none; }
@@ -177,7 +186,7 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 0;
   box-shadow: none;
-  width: auto;
+  width: 154px;
   white-space: nowrap;
   color: #FFFFFF; }
   .popup-marker-secondary-tip-container {
@@ -200,17 +209,21 @@ body {
   box-shadow: none;
   color: #FFFFFF;
   text-align: center;
-  min-width: 100px;
-  font-family: Verdana;
-  font-weight: bold; }
-.secondary-marker-content-heading {
   text-transform: uppercase;
+  font-family: engebrechtrebold;
+  font-size: 16px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  white-space: nowrap; }
+.secondary-marker-content-heading {
+  text-transform: initial;
+  letter-spacing: initial;
   display: block;
   border-bottom: 1px solid #B5B5B5;
   margin-top: -9px;
   font-family: Arial;
   font-weight: normal;
-  font-size: 11px; }
+  font-size: 12px; }
 .secondary-marker-tip-container {
   width: 20px;
   height: 20px;
@@ -228,7 +241,10 @@ body {
   z-index: 3000 !important; }
 .vdf-marker-secondary {
   z-index: 5000 !important;
-  display: none; }
+  display: none;
+  width: 154px !important;
+  margin-top: -63px !important;
+  margin-left: -75px !important; }
 
 .marker-main {
   background: #FFFFFF;
@@ -252,7 +268,10 @@ body {
     margin: 0 auto; }
   .marker-main .main-subunit {
     display: block;
-    font-family: Verdana;
+    font-family: engebrechtrebold;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     font-weight: bold;
     font-size: 16px;
     margin: 0 0 0.5em;
