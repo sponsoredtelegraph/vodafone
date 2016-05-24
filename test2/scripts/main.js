@@ -1,5 +1,6 @@
 (function(){
     L.mapbox.accessToken = 'pk.eyJ1IjoieW96em8iLCJhIjoiY2lvYTdtOTR5MDA4bHc2bHkzdGV4a2UyciJ9.L3YfGHN-2yVbpjQPvdrY7Q';
+    // L.mapbox.accessToken = 'pk.eyJ1Ijoic3BhcmtkaWdpdGFsZGVzaWduIiwiYSI6ImNpb2xsaWk0ZzAwMmh2dm02NGh0aGlnMjIifQ.emvmxCPCZlpQ0ovvxp0F-g';
 
     var vdfMap = vdfMap || {};
 
@@ -8,7 +9,15 @@
         bounds = L.latLngBounds(southWest, northEast);
 
     var map = L.mapbox
-            .map('map', 'mapbox.light', {attributionControl: false, zoomControl: false, minZoom: 4, maxZoom: 7, maxBounds: bounds})
+            .map('map', 'mapbox.light',
+                {
+                    attributionControl: false,
+                    zoomControl: false,
+                    minZoom: 4,
+                    maxZoom: 7,
+                    maxBounds: bounds,
+                    style: 'mapbox://styles/yozzo/cioei8vzc002yczmamm4yefeb'
+                })
             .setView([44, 16], 5);
 
     L.control.zoomslider().addTo(map);
@@ -38,25 +47,15 @@
                     var  secondaryMarkerHtml = '<div class="secondary-marker-root">' +
                         '<div class="secondary-marker-wrapper">' +
                         '<div class="secondary-marker-content">' +
+                        '<a href="'+ feature.properties.content.href +'">' +
                         '<span class="secondary-marker-content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>' +
-                        '<span class="secondary-marker-content-copy">' + feature.properties.sr_subunit + '</span>' +
+                        '<span class="secondary-marker-content-copy">' + feature.properties.sr_subunit + '</span></a>' +
                         '</div>' +
                         '</div>' +
                         '<div class="secondary-marker-tip-container">' +
                         '<div class="secondary-marker-tip"></div>' +
                         '</div>' +
                         '</div>';
-
-                    // setTimeout(function() {
-                    //     $.each($('.vdf-marker-secondary .secondary-marker-content-copy'), function() {
-                    //
-                    //         if($(this).text().length >= 12) {
-                    //             $(this).parents('.vdf-marker-secondary').before().css('margin-top', '-84px');
-                    //         } else {
-                    //             $(this).parents('.vdf-marker-secondary').before().css('margin-top', '-63px');
-                    //         }
-                    //     });
-                    // }, 500);
                     
                     return secondaryMarkerHtml;
 
@@ -100,6 +99,12 @@
 
                     var feature = marker.toGeoJSON();
 
+                    //TODO move this outside the map
+                    $('.destinations__list--main').append('<li class="list-item"> <span class="list-item-heading">' + feature.properties.sr_subunit +'</span>' +
+                            '<span class="list-item-copy">' + feature.properties.content.copy +'</span>' +
+                        '<a class="list-item-link" href=""' + feature.properties.content.href + '">&nbsp</a></li>');
+
+
                     marker._icon.src = 'images/dot.svg';
                     marker._icon.class = 'main-marker-pin';
 
@@ -114,10 +119,14 @@
 
                 } else if (marker.toGeoJSON().properties.destination === 'secondary'){
 
-                    marker.bindPopup('<div class="popup-marker-secondary">' +
+                    //TODO move this outside the map
+                    $('.destinations__list--secondary').append('<li class="list-item"> <span class="list-item-heading">' + marker.toGeoJSON().properties.sr_subunit +'</span>' +
+                        '<a class="list-item-link" href=""' + marker.toGeoJSON().properties.content.href + '">&nbsp</a></li>');
+
+                    marker.bindPopup('<div class="popup-marker-secondary"><a href="' + marker.toGeoJSON().properties.content.href +'">' +
                         '<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>'
                         + marker.toGeoJSON().properties.sr_subunit +
-                        '</div>'
+                        '</div></a>'
                         + '<div class="popup-marker-secondary-tip-container"><div class="popup-marker-secondary-tip"></div></div>'
                     );
 
@@ -153,9 +162,9 @@
     } );
     mainMap.on('mouseout', function(e) {
 
-        // setTimeout(function() {
-        //     e.layer.closePopup();
-        // }, 3000);
+        setTimeout(function() {
+            e.layer.closePopup();
+        }, 3000);
     });
     mainMap.on('click', function(e) {
         if (e.layer.feature.properties.content) {
@@ -169,12 +178,12 @@
      */
     map.on('ready', function() {
         var minimap = L.mapbox.tileLayer('mapbox.light', {noWrap: false}, {minZoom: 0, maxZoom: 4, maxBounds: bounds}),
-            miniCoverage = omnivore.topojson('data/vodafoneCoverageTopoJson.json');
+            miniCoverage =  L.mapbox.featureLayer().loadURL('data/coverage.geojson');
 
         layers = new L.LayerGroup([minimap, miniCoverage]);
 
         new L.Control.MiniMap(layers, {
-            width: 250,
+            width: 240,
             position: 'topright',
             aimingRectOptions: {color: "#333333", weight: 3},
             shadowRectOptions: {color: "#c90000", weight: 1, opacity: 0, fillOpacity: 0},
@@ -228,9 +237,18 @@
 
     //TODO get style locally
     L.mapbox.styleLayer('mapbox://styles/yozzo/cioei8vzc002yczmamm4yefeb').addTo(map);
+    L.mapbox.featureLayer().loadURL('data/coverage.geojson').addTo(map);
 
-    //TODO swap with valid geoJSON
-    var VodafoneLayer = omnivore.topojson('data/VodafoneCoverageTopoJson.json')
-        .addTo(map);
+
+    function populateMobileLists() {
+        var data =  L.mapbox.featureLayer().loadURL('data/coverage.geojson');
+
+
+
+        console.log('data', data);
+    }
+
+    populateMobileLists();
 
 })();
+

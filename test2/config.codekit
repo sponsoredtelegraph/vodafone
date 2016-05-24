@@ -11,28 +11,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/data\/lightStyle.json": {
-		"fileType": 524288,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/data\/lightStyle.json",
-		"orderOutput": 0,
-		"outputAbbreviatedPath": "\/data\/lightStyle-min.json",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1
-		},
-	"\/data\/vodafoneCoverageTopoJson.json": {
-		"fileType": 524288,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/data\/vodafoneCoverageTopoJson.json",
-		"orderOutput": 0,
-		"outputAbbreviatedPath": "\/data\/vodafoneCoverageTopoJson-min.json",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1
-		},
 	"\/images\/minimap.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -40,6 +18,17 @@
 		"initialSize": 38914,
 		"inputAbbreviatedPath": "\/images\/minimap.jpg",
 		"outputAbbreviatedPath": "\/images\/minimap.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/mobile-map.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 80728,
+		"inputAbbreviatedPath": "\/images\/mobile-map.jpg",
+		"outputAbbreviatedPath": "\/images\/mobile-map.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0

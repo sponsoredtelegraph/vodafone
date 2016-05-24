@@ -1,7 +1,20 @@
 @font-face {
     font-family: 'engebrechtrebold';
-    src: url('../fonts/engebrechtre_bd-webfont.woff2') format('woff2'),
-    url('../fonts/engebrechtre_bd-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+    src: url('../fonts/engebrechtre_bd.eot');
+    src: url('../fonts/engebrechtre_bd.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/engebrechtre_bd.woff') format('woff'),
+    url('../fonts/engebrechtre_bd.ttf') format('truetype'),
+    url('../fonts/engebrechtre_bd.svg#engebrechtrebold') format('svg');
+}
+
+
+@font-face {
+    font-family: 'GothamNarrowBook';
+    font-style: 'normal';
+    font-weight: 'normal';
+    src: url('../fonts/GothamNarrow-Book.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/GothamNarrow-Book.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/GothamNarrow-Book.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/GothamNarrow-Book.svg#GothamNarrow-Book') format('svg'), /* Legacy iOS */
+    url('../fonts/GothamNarrow-Book.ttf') format('truetype'); /* Safari, Android, iOS */
 }
