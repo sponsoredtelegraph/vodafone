@@ -80,12 +80,111 @@
                 secondary: '.destinations__list--secondary'
             },
 
-            button: '.roaming__coverage'
+            button: '.roaming__coverage',
+            popup: '.leaflet-popup-content'
         },
 
         svg: {
             dot: 'images/dot.svg',
             empty: 'images/empty.svg'
+        },
+
+        delayOpacity: function (selector, fn, arg) {
+            $(selector).each(function(index) {
+                $(this).delay(40*index)[fn](arg);
+            });
+        },
+
+        setHtml: function(feature) {
+
+            if ( feature.properties.destination
+                && feature.properties.destination === 'main'
+                && feature.properties.content) {
+
+                var mainMarkerHtml = vdfMap.template.main.marker({
+                    country: feature.properties.sr_subunit,
+                    copy: feature.properties.content.copy,
+                    link: feature.properties.content.href
+                });
+
+
+                return mainMarkerHtml;
+
+            } else if ( feature.properties.destination
+                && feature.properties.destination === 'secondary'
+                && feature.properties.content) {
+
+                var secondaryMarkerHtml = vdfMap.template.secondary.marker({
+                    country: feature.properties.sr_subunit,
+                    link: feature.properties.href
+                });
+
+                return secondaryMarkerHtml;
+
+            } else {
+                return '';
+            }
+        },
+
+        setClassName: function (feature) {
+            if ( feature.properties.destination
+                && feature.properties.destination === 'main') {
+                return vdfMap.className.marker.main;
+            } else if ( feature.properties.destination
+                && feature.properties.destination === 'secondary') {
+                return vdfMap.className.marker.secondary;
+            }
+
+            else {
+                return vdfMap.className.marker.normal;
+            }
+        },
+
+        drawMap: function(e) {
+
+            gj.addData(this.getGeoJSON());
+
+            this.eachLayer(function(marker) {
+                var feature = marker.toGeoJSON();
+                if (feature.properties.destination === 'main') {
+
+                    //populates the mobile version
+                    $(vdfMap.selector.list.main).append(vdfMap.template.main.listItem({
+                        country: feature.properties.sr_subunit,
+                        copy: feature.properties.content.copy,
+                        link: feature.properties.content.href
+                    }));
+
+                    marker._icon.src = vdfMap.svg.dot;
+                    marker._icon.class = vdfMap.className.pin.main;
+
+                    marker.bindPopup(vdfMap.template.main.hover({
+                        country: feature.properties.sr_subunit,
+                        copy: feature.properties.content.copy,
+                        link: feature.properties.content.href
+                    }));
+
+                } else if (feature.properties.destination === 'secondary'){
+
+                    //populate the mobile version
+                    $(vdfMap.selector.list.main).append(vdfMap.template.secondary.listItem({
+                        country: feature.properties.sr_subunit,
+                        link: feature.properties.content.href
+                    }));
+
+                    marker.bindPopup(vdfMap.template.secondary.hover({
+                        country: feature.properties.sr_subunit,
+                        link: feature.properties.href
+                    }));
+
+                    marker._icon.src = vdfMap.svg.dot;
+                    marker._icon.class = vdfMap.className.pin.secondary;
+
+                } else {
+                    marker.setIcon(L.mapbox.marker.icon({}));
+                    marker._icon.src = vdfMap.svg.empty;
+                }
+            });
         }
     };
 
@@ -108,56 +207,10 @@
 
     var gj = L.geoJson(null, {
         pointToLayer: function(feature, ll) {
-
-            function setHtml(feature) {
-
-                if ( feature.properties.destination
-                    && feature.properties.destination === 'main'
-                    && feature.properties.content) {
-
-                    var mainMarkerHtml = vdfMap.template.main.marker({
-                        country: feature.properties.sr_subunit,
-                        copy: feature.properties.content.copy,
-                        link: feature.properties.content.href
-                    });
-
-
-                    return mainMarkerHtml;
-
-                } else if ( feature.properties.destination
-                            && feature.properties.destination === 'secondary'
-                            && feature.properties.content) {
-
-                    var secondaryMarkerHtml = vdfMap.template.secondary.marker({
-                        country: feature.properties.sr_subunit,
-                        link: feature.properties.href
-                    });
-                    
-                    return secondaryMarkerHtml;
-
-                } else {
-                    return '';
-                }
-            }
-
-            function setClassName() {
-                if ( feature.properties.destination
-                    && feature.properties.destination === 'main') {
-                    return vdfMap.className.marker.main;
-                } else if ( feature.properties.destination
-                    && feature.properties.destination === 'secondary') {
-                    return vdfMap.className.marker.secondary;
-                }
-
-                else {
-                    return vdfMap.className.marker.normal;
-                }
-            }
-
             return L.marker(ll, {
                 icon: L.divIcon({
-                    className: setClassName(feature),
-                    html: setHtml(feature),
+                    className: vdfMap.setClassName(feature),
+                    html: vdfMap.setHtml(feature),
                     iconSize: [100, 40]
                 })
             });
@@ -166,57 +219,7 @@
 
     var mainMap = L.mapbox.featureLayer()
         .loadURL(vdfMap.url.destinations)
-        .on('ready', function(e) {
-
-            gj.addData(this.getGeoJSON());
-
-            this.eachLayer(function(marker) {
-                var feature = marker.toGeoJSON();
-                if (feature.properties.destination === 'main') {
-
-                        listItemMain = vdfMap.template.main.listItem({
-                            country: feature.properties.sr_subunit,
-                            copy: feature.properties.content.copy,
-                            link: feature.properties.content.href
-                        });
-
-                    //TODO move this outside the map
-                    $(vdfMap.selector.list.main).append(listItemMain);
-
-                    marker._icon.src = vdfMap.svg.dot;
-                    marker._icon.class = vdfMap.className.pin.main;
-
-                    marker.bindPopup(vdfMap.template.main.hover({
-                        country: feature.properties.sr_subunit,
-                        copy: feature.properties.content.copy,
-                        link: feature.properties.content.href
-                    }));
-
-
-                } else if (feature.properties.destination === 'secondary'){
-
-                    $(vdfMap.selector.list.main).append(vdfMap.template.secondary.listItem({
-                        country: feature.properties.sr_subunit,
-                        link: feature.properties.content.href
-                    }));
-
-                    marker.bindPopup(vdfMap.template.secondary.hover({
-                        country: feature.properties.sr_subunit,
-                        link: feature.properties.href
-                    }));
-
-                    marker._icon.src = vdfMap.svg.dot;
-                    marker._icon.class = vdfMap.className.pin.secondary;
-
-                } else {
-                    marker.setIcon(L.mapbox.marker.icon({}));
-                    marker._icon.src = vdfMap.svg.empty;
-                }
-            });
-        }).addTo(map);
-
-
-
+        .on('ready', vdfMap.drawMap).addTo(map);
 
     mainMap.on('mouseover',function(e) {
         var destination = e.layer.feature.properties.destination;
@@ -232,8 +235,8 @@
         if (map.getZoom() < 6 &&  destination === 'secondary') {
             e.layer.openPopup();
         }
+    });
 
-    } );
     mainMap.on('mouseout', function(e) {
 
         setTimeout(function() {
@@ -274,28 +277,21 @@
 
     map.on('zoomend', function() {
 
-        $('.leaflet-popup-content').hide();
+        $(vdfMap.selector.popup).hide();
 
         if (map.getZoom() >= 5) {
-            $(vdfMap.selector.marker.main).each(function(index) {
-                $(this).delay(40*index).fadeIn(100);
-            });
+            vdfMap.delayOpacity(vdfMap.selector.marker.main, 'fadeIn', 100);
         } else {
-            $(vdfMap.selector.marker.main).each(function(index) {
-                $(this).delay(40*index).fadeOut(100);
-            });
+            vdfMap.delayOpacity(vdfMap.selector.marker.main, 'fadeOut', 100);
         }
 
         if (map.getZoom() >= 6) {
-            $(vdfMap.selector.marker.secondary).each(function(index) {
-                $(this).delay(40*index).fadeIn(100);
-            });
+            vdfMap.delayOpacity(vdfMap.selector.marker.secondary, 'fadeIn', 100);
         } else {
-            $(vdfMap.selector.marker.secondary).each(function(index) {
-                $(this).delay(40*index).fadeOut(100);
-            });
+            vdfMap.delayOpacity(vdfMap.selector.marker.secondary, 'fadeOut', 100);
         }
     });
+
 
     $(vdfMap.selector.marker.secondary).each(function(index) {
         $(this).delay(400*index).fadeIn(300);
