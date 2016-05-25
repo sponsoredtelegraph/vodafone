@@ -1,7 +1,95 @@
 (function(){
-    L.mapbox.accessToken = 'pk.eyJ1Ijoic3BhcmtkaWdpdGFsZGVzaWduIiwiYSI6ImNpb2xsaWk0ZzAwMmh2dm02NGh0aGlnMjIifQ.emvmxCPCZlpQ0ovvxp0F-g';
+
 
     var vdfMap = vdfMap || {};
+
+    vdfMap = {
+        template: {
+
+            main: {
+                marker: _.template('<div class="marker-main">' +
+                    '<span class="main-pin">&nbsp;</span>' +
+                    '<span class="main-subunit"><%= country %></span>' +
+                    '<p class="main-copy"><%= copy %></p>' +
+                    '<a class="main-href" href="<%= link %>">&nbsp</a>'),
+
+                listItem: _.template('<li class="list-item"> <span class="list-item-heading"><%= country %></span>' +
+                    '<span class="list-item-copy"><%= copy %></span>' +
+                    '<a class="list-item-link" href="<%= link %>">&nbsp</a></li>'),
+
+                hover: _.template(
+                    '<div class="marker-main">' +
+                    '<span class="main-pin">&nbsp;</span>' +
+                    '<span class="main-subunit"><%= country %></span>' +
+                    '<p class="main-copy"><%= copy %></p>' +
+                    '<a class="main-href" href="<%= link %>">&nbsp</a>'
+                )
+            },
+
+            secondary: {
+                marker: _.template('<div class="secondary-marker-root">' +
+                    '<div class="secondary-marker-wrapper">' +
+                    '<div class="secondary-marker-content">' +
+                    '<a href="<%= link %>">' +
+                    '<span class="secondary-marker-content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>' +
+                    '<span class="secondary-marker-content-copy"><%= country %></span></a>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="secondary-marker-tip-container">' +
+                    '<div class="secondary-marker-tip"></div>' +
+                    '</div>' +
+                    '</div>'),
+
+                listItem: _.template('<li class="list-item"> <span class="list-item-heading"><%= country %></span>' +
+                    '<a class="list-item-link" href="<%= link %>">&nbsp</a></li>'),
+
+                hover: _.template('<div class="popup-marker-secondary"><a href="<%= link %>">' +
+                    '<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span><%= country %></div></a>'
+                    + '<div class="popup-marker-secondary-tip-container"><div class="popup-marker-secondary-tip"></div></div>')
+            }
+        },
+        style: 'mapbox://styles/sparkdigitaldesign/ciomog30c0019dgm46h7b8gnd',
+        token: 'pk.eyJ1Ijoic3BhcmtkaWdpdGFsZGVzaWduIiwiYSI6ImNpb2xsaWk0ZzAwMmh2dm02NGh0aGlnMjIifQ.emvmxCPCZlpQ0ovvxp0F-g',
+        url: {
+            coverage: 'data/coverage.geojson',
+            destinations: 'data/destinations.geojson'
+        },
+
+        className: {
+            marker: {
+                main: 'vdf-marker-main',
+                secondary: 'vdf-marker-secondary',
+                normal: 'vdf-marker'
+            },
+
+            pin: {
+                main: 'main-marker-pin',
+                secondary: 'secondary-marker-pin'
+            }
+        },
+
+        selector: {
+            marker: {
+                main: '.vdf-marker-main',
+                secondary: '.vdf-marker-secondary',
+                normal: '.vdf-marker'
+            },
+
+            list: {
+                main: '.destinations__list--main',
+                secondary: '.destinations__list--secondary'
+            },
+
+            button: '.roaming__coverage'
+        },
+
+        svg: {
+            dot: 'images/dot.svg',
+            empty: 'images/empty.svg'
+        }
+    };
+
+    L.mapbox.accessToken = vdfMap.token;
 
     var southWest = L.latLng(-71.300, -165.937),
         northEast = L.latLng(82.118, 189.843),
@@ -11,15 +99,12 @@
             .map('map', 'mapbox.light',
                 {
                     attributionControl: false,
-                    zoomControl: false,
                     minZoom: 4,
                     maxZoom: 7,
                     maxBounds: bounds,
-                    style: 'mapbox://styles/yozzo/cioei8vzc002yczmamm4yefeb'
+                    style: vdfMap.style
                 })
             .setView([44, 16], 5);
-
-    L.control.zoom({ position: 'topright' }).addTo(map);
 
     var gj = L.geoJson(null, {
         pointToLayer: function(feature, ll) {
@@ -30,11 +115,11 @@
                     && feature.properties.destination === 'main'
                     && feature.properties.content) {
 
-                    var mainMarkerHtml = '<div class="marker-main">' +
-                                            '<span class="main-pin">&nbsp;</span>' +
-                                            '<span class="main-subunit">' + feature.properties.sr_subunit + '</span>' +
-                                            '<p class="main-copy">' + feature.properties.content.copy + '</p>' +
-                                            '<a class="main-href" href="' + feature.properties.content.href + '">&nbsp</a>';
+                    var mainMarkerHtml = vdfMap.template.main.marker({
+                        country: feature.properties.sr_subunit,
+                        copy: feature.properties.content.copy,
+                        link: feature.properties.content.href
+                    });
 
 
                     return mainMarkerHtml;
@@ -43,18 +128,10 @@
                             && feature.properties.destination === 'secondary'
                             && feature.properties.content) {
 
-                    var  secondaryMarkerHtml = '<div class="secondary-marker-root">' +
-                        '<div class="secondary-marker-wrapper">' +
-                        '<div class="secondary-marker-content">' +
-                        '<a href="'+ feature.properties.content.href +'">' +
-                        '<span class="secondary-marker-content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>' +
-                        '<span class="secondary-marker-content-copy">' + feature.properties.sr_subunit + '</span></a>' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="secondary-marker-tip-container">' +
-                        '<div class="secondary-marker-tip"></div>' +
-                        '</div>' +
-                        '</div>';
+                    var secondaryMarkerHtml = vdfMap.template.secondary.marker({
+                        country: feature.properties.sr_subunit,
+                        link: feature.properties.href
+                    });
                     
                     return secondaryMarkerHtml;
 
@@ -66,14 +143,14 @@
             function setClassName() {
                 if ( feature.properties.destination
                     && feature.properties.destination === 'main') {
-                    return 'vdf-marker-main';
+                    return vdfMap.className.marker.main;
                 } else if ( feature.properties.destination
                     && feature.properties.destination === 'secondary') {
-                    return 'vdf-marker-secondary';
+                    return vdfMap.className.marker.secondary;
                 }
 
                 else {
-                    return 'vdf-marker';
+                    return vdfMap.className.marker.normal;
                 }
             }
 
@@ -88,54 +165,52 @@
     }).addTo(map);
 
     var mainMap = L.mapbox.featureLayer()
-        .loadURL('data/destinations.geojson')
+        .loadURL(vdfMap.url.destinations)
         .on('ready', function(e) {
 
             gj.addData(this.getGeoJSON());
 
             this.eachLayer(function(marker) {
-                if (marker.toGeoJSON().properties.destination === 'main') {
+                var feature = marker.toGeoJSON();
+                if (feature.properties.destination === 'main') {
 
-                    var feature = marker.toGeoJSON();
-
-                    //TODO move this outside the map
-                    $('.destinations__list--main').append('<li class="list-item"> <span class="list-item-heading">' + feature.properties.sr_subunit +'</span>' +
-                            '<span class="list-item-copy">' + feature.properties.content.copy +'</span>' +
-                        '<a class="list-item-link" href="' + feature.properties.content.href + '">&nbsp</a></li>');
-
-
-                    marker._icon.src = 'images/dot.svg';
-                    marker._icon.class = 'main-marker-pin';
-
-                    marker.bindPopup(
-                        '<div class="marker-main">' +
-                        '<span class="main-pin">&nbsp;</span>' +
-                        '<span class="main-subunit">' + feature.properties.sr_subunit + '</span>' +
-                        '<p class="main-copy">' + feature.properties.content.copy + '</p>' +
-                        '<a class="main-href" href="' + feature.properties.content.href + '">&nbsp</a>'
-                    );
-
-
-                } else if (marker.toGeoJSON().properties.destination === 'secondary'){
+                        listItemMain = vdfMap.template.main.listItem({
+                            country: feature.properties.sr_subunit,
+                            copy: feature.properties.content.copy,
+                            link: feature.properties.content.href
+                        });
 
                     //TODO move this outside the map
-                    $('.destinations__list--secondary').append('<li class="list-item"> <span class="list-item-heading">' + marker.toGeoJSON().properties.sr_subunit +'</span>' +
-                        '<a class="list-item-link" href="' + marker.toGeoJSON().properties.content.href + '">&nbsp</a></li>');
+                    $(vdfMap.selector.list.main).append(listItemMain);
 
-                    marker.bindPopup('<div class="popup-marker-secondary"><a href="' + marker.toGeoJSON().properties.content.href +'">' +
-                        '<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>'
-                        + marker.toGeoJSON().properties.sr_subunit +
-                        '</div></a>'
-                        + '<div class="popup-marker-secondary-tip-container"><div class="popup-marker-secondary-tip"></div></div>'
-                    );
+                    marker._icon.src = vdfMap.svg.dot;
+                    marker._icon.class = vdfMap.className.pin.main;
+
+                    marker.bindPopup(vdfMap.template.main.hover({
+                        country: feature.properties.sr_subunit,
+                        copy: feature.properties.content.copy,
+                        link: feature.properties.content.href
+                    }));
 
 
-                    marker._icon.src = 'images/dot.svg';
+                } else if (feature.properties.destination === 'secondary'){
+
+                    $(vdfMap.selector.list.main).append(vdfMap.template.secondary.listItem({
+                        country: feature.properties.sr_subunit,
+                        link: feature.properties.content.href
+                    }));
+
+                    marker.bindPopup(vdfMap.template.secondary.hover({
+                        country: feature.properties.sr_subunit,
+                        link: feature.properties.href
+                    }));
+
+                    marker._icon.src = vdfMap.svg.dot;
+                    marker._icon.class = vdfMap.className.pin.secondary;
 
                 } else {
                     marker.setIcon(L.mapbox.marker.icon({}));
-                    marker._icon.src = 'images/empty.svg';
-
+                    marker._icon.src = vdfMap.svg.empty;
                 }
             });
         }).addTo(map);
@@ -168,7 +243,7 @@
     mainMap.on('click', function(e) {
         if (e.layer.feature.properties.content) {
         var link = e.layer.feature.properties.content.href;
-            window.open(link);
+            window.open(link, '_self');
         }
     });
 
@@ -177,7 +252,7 @@
      */
     map.on('ready', function() {
         var minimap = L.mapbox.tileLayer('mapbox.light', {noWrap: false}, {minZoom: 0, maxZoom: 4, maxBounds: bounds}),
-            miniCoverage =  L.mapbox.featureLayer().loadURL('data/coverage.geojson');
+            miniCoverage =  L.mapbox.featureLayer().loadURL(vdfMap.url.coverage);
 
         layers = new L.LayerGroup([minimap, miniCoverage]);
 
@@ -190,64 +265,49 @@
         })
             .addTo(map);
 
-        $('.vdf-marker-secondary').hide();
+        $('.' + vdfMap.className.marker.secondary).hide();
 
         setTimeout(function() {
-            $('.vdf-marker').remove();
+            $(vdfMap.selector.marker.normal).remove();
         }, 300);
     });
-
 
     map.on('zoomend', function() {
 
         $('.leaflet-popup-content').hide();
 
         if (map.getZoom() >= 5) {
-            $('.vdf-marker-main').each(function(index) {
+            $(vdfMap.selector.marker.main).each(function(index) {
                 $(this).delay(40*index).fadeIn(100);
             });
         } else {
-            $('.vdf-marker-main').each(function(index) {
+            $(vdfMap.selector.marker.main).each(function(index) {
                 $(this).delay(40*index).fadeOut(100);
             });
         }
 
         if (map.getZoom() >= 6) {
-            $('.vdf-marker-secondary').each(function(index) {
+            $(vdfMap.selector.marker.secondary).each(function(index) {
                 $(this).delay(40*index).fadeIn(100);
             });
         } else {
-            $('.vdf-marker-secondary').each(function(index) {
+            $(vdfMap.selector.marker.secondary).each(function(index) {
                 $(this).delay(40*index).fadeOut(100);
             });
         }
     });
 
-
-    $('.vdf-marker-secondary').each(function(index) {
+    $(vdfMap.selector.marker.secondary).each(function(index) {
         $(this).delay(400*index).fadeIn(300);
     });
 
 
-
-    $('.roaming__coverage').on('click', function(){
+    $(vdfMap.selector.button).on('click', function(){
         map.setView([55, -8], 3);
     });
 
-    //TODO get style locally
-    L.mapbox.styleLayer('mapbox://styles/sparkdigitaldesign/ciomog30c0019dgm46h7b8gnd').addTo(map);
-    L.mapbox.featureLayer().loadURL('data/coverage.geojson').addTo(map);
-
-
-    function populateMobileLists() {
-        var data =  L.mapbox.featureLayer().loadURL('data/coverage.geojson');
-
-
-
-        console.log('data', data);
-    }
-
-    populateMobileLists();
+    L.mapbox.styleLayer(vdfMap.style).addTo(map);
+    L.mapbox.featureLayer().loadURL(vdfMap.url.coverage).addTo(map);
 
 })();
 

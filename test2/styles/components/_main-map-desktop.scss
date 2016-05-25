@@ -8,7 +8,7 @@ body { margin:0; padding:0; }
         stroke: #9ba1a5;
         stroke-width: 1;
         stroke-opacity: 1;
-        fill: #C80E00;
+        fill: $color-red;
         fill-opacity: 0.8;
         background-blend-mode: multiply;
     }
@@ -18,7 +18,7 @@ body { margin:0; padding:0; }
         padding: 30px;
         position: absolute;
         top: 15px;
-        height: 622px;
+        height: 578px;
         right: 15px;
         background: rgba(0, 0, 0, 0.9);
 
@@ -108,7 +108,7 @@ body { margin:0; padding:0; }
     }
 
     .leaflet-popup {
-        bottom: -30px !important; //overrides inline style
+        bottom: -15px !important; //overrides inline style
 
         &-content {
             text-align: center;
@@ -159,8 +159,8 @@ body { margin:0; padding:0; }
         }
 
         &-tip-container {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
             margin: 0 auto;
             position: relative;
         }
@@ -169,9 +169,9 @@ body { margin:0; padding:0; }
             width: 0;
             height: 0;
             margin: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid rgba(0, 0, 0, 0.8);
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 7px solid rgba(0, 0, 0, 0.8);
         }
     }
 
@@ -204,8 +204,8 @@ body { margin:0; padding:0; }
         }
 
         &-tip-container {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
             margin: 0 auto;
             position: relative;
         }
@@ -214,9 +214,9 @@ body { margin:0; padding:0; }
             width: 0;
             height: 0;
             margin: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid rgba(0, 0, 0, 0.8);
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 7px solid rgba(0, 0, 0, 0.8);
         }
     }
 
@@ -230,7 +230,7 @@ body { margin:0; padding:0; }
             z-index: 3000 !important; //overrides inline-style
             display: none;
             width: 100px !important; //Change this value to wrap around country name
-            margin-top: -63px !important;
+            margin-top: -73px !important;
             //margin-left: -77px !important;
 
             a {
@@ -312,38 +312,34 @@ body { margin:0; padding:0; }
 
     .leaflet-popup-content {
         .marker-main {
-            right: -32px;
-            top: -15px;
+            right: -31px;
+            top: -4px;
         }
     }
 
     .leaflet-control-minimap {
-        top: 392px;
+        top: 424px;
         right: 15px;
         border: none;
         border-radius: 0;
     }
 
     .leaflet-control-zoom {
-        top: 590px;
-        width: 299px;
-        right: 15px;
         background: none;
         border-radius: 0;
+        border: none;
 
         &-in {
             background: url($uri-btn-plus);
-            background-position: -3px 50% !important;
+            background-position: -2px 50% !important;
         }
 
         &-out {
             background: url($uri-btn-minus);
-            background-position: -3px 50% !important;
-            float: right;
+            background-position: -2px 50% !important;
         }
 
         a {
-            display: inline-block;
             background-color: $color-white;
             opacity: 1;
 
@@ -396,6 +392,7 @@ body { margin:0; padding:0; }
                     background-size: contain;
                     width: 30px;
                 }
+
                 &--telegraph {
                     background: url($uri-telegraph) no-repeat;
                     background-size: contain;
@@ -421,12 +418,13 @@ body { margin:0; padding:0; }
                     }
                 }
 
-                &--twitter {
+                .social-share_twitter {
                     background: url($uri-btn-twitter) no-repeat;
                     background-size: contain;
                     width: 30px;
                 }
-                &--facebook {
+
+                .social-share_facebook {
                     background: url($uri-btn-facebook) no-repeat;
                     background-size: contain;
                     background-position-y: 50%;
@@ -435,7 +433,34 @@ body { margin:0; padding:0; }
             }
         }
     }
+
+    .addthis_sharing_toolbox { // !important overrides inline style
+        float: right !important;
+        margin-top: 5px;
+
+        .at-share-btn {
+            max-width: 3pc !important;
+        }
+
+        .at-icon-wrapper {
+            background-color: $color-white !important;
+            height: 26px !important;
+            width: 26px !important;
+            margin-right: 10px;
+            svg g {
+                fill: #000;
+            }
+
+            .at-icon-twitter,
+            .at-icon-facebook {
+                height: 25px !important;
+                width: 25px !important;
+            }
+        }
+    }
 }
+
+
 
 
 

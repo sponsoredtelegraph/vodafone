@@ -44,7 +44,7 @@
                 list-style: none;
                 color: $color-white;
                 font-family: GothamNarrowBook, Arial;
-                font-size: 12px;
+                font-size: 14px;
                 margin-bottom: 15px;
                 position: relative;
                 padding-left: 30px;
@@ -240,4 +240,30 @@
             }
         }
     }
+
+    .addthis_sharing_toolbox { // !important overrides inline style
+        float: right !important;
+        margin-top: 10px;
+
+        .at-share-btn {
+            max-width: 3pc !important;
+        }
+
+        .at-icon-wrapper {
+            background-color: $color-white !important;
+            height: 36px !important;
+            width: 36px !important;
+            margin-right: 15px;
+            svg g {
+                fill: #000;
+            }
+
+            .at-icon-twitter,
+            .at-icon-facebook {
+                height: 35px !important;
+                width: 35px !important;
+            }
+        }
+    }
 }
+
