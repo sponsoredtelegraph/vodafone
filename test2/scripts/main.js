@@ -1,6 +1,5 @@
 (function(){
-    L.mapbox.accessToken = 'pk.eyJ1IjoieW96em8iLCJhIjoiY2lvYTdtOTR5MDA4bHc2bHkzdGV4a2UyciJ9.L3YfGHN-2yVbpjQPvdrY7Q';
-    // L.mapbox.accessToken = 'pk.eyJ1Ijoic3BhcmtkaWdpdGFsZGVzaWduIiwiYSI6ImNpb2xsaWk0ZzAwMmh2dm02NGh0aGlnMjIifQ.emvmxCPCZlpQ0ovvxp0F-g';
+    L.mapbox.accessToken = 'pk.eyJ1Ijoic3BhcmtkaWdpdGFsZGVzaWduIiwiYSI6ImNpb2xsaWk0ZzAwMmh2dm02NGh0aGlnMjIifQ.emvmxCPCZlpQ0ovvxp0F-g';
 
     var vdfMap = vdfMap || {};
 
@@ -20,7 +19,7 @@
                 })
             .setView([44, 16], 5);
 
-    L.control.zoomslider().addTo(map);
+    L.control.zoom({ position: 'topright' }).addTo(map);
 
     var gj = L.geoJson(null, {
         pointToLayer: function(feature, ll) {
@@ -102,7 +101,7 @@
                     //TODO move this outside the map
                     $('.destinations__list--main').append('<li class="list-item"> <span class="list-item-heading">' + feature.properties.sr_subunit +'</span>' +
                             '<span class="list-item-copy">' + feature.properties.content.copy +'</span>' +
-                        '<a class="list-item-link" href=""' + feature.properties.content.href + '">&nbsp</a></li>');
+                        '<a class="list-item-link" href="' + feature.properties.content.href + '">&nbsp</a></li>');
 
 
                     marker._icon.src = 'images/dot.svg';
@@ -121,7 +120,7 @@
 
                     //TODO move this outside the map
                     $('.destinations__list--secondary').append('<li class="list-item"> <span class="list-item-heading">' + marker.toGeoJSON().properties.sr_subunit +'</span>' +
-                        '<a class="list-item-link" href=""' + marker.toGeoJSON().properties.content.href + '">&nbsp</a></li>');
+                        '<a class="list-item-link" href="' + marker.toGeoJSON().properties.content.href + '">&nbsp</a></li>');
 
                     marker.bindPopup('<div class="popup-marker-secondary"><a href="' + marker.toGeoJSON().properties.content.href +'">' +
                         '<span class="content-heading">&nbsp;&nbsp;A guide to&nbsp;&nbsp;</span>'
@@ -183,7 +182,7 @@
         layers = new L.LayerGroup([minimap, miniCoverage]);
 
         new L.Control.MiniMap(layers, {
-            width: 240,
+            width: 300,
             position: 'topright',
             aimingRectOptions: {color: "#333333", weight: 3},
             shadowRectOptions: {color: "#c90000", weight: 1, opacity: 0, fillOpacity: 0},
@@ -236,7 +235,7 @@
     });
 
     //TODO get style locally
-    L.mapbox.styleLayer('mapbox://styles/yozzo/cioei8vzc002yczmamm4yefeb').addTo(map);
+    L.mapbox.styleLayer('mapbox://styles/sparkdigitaldesign/ciomog30c0019dgm46h7b8gnd').addTo(map);
     L.mapbox.featureLayer().loadURL('data/coverage.geojson').addTo(map);
 
 
