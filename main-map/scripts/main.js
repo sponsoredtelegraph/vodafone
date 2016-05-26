@@ -307,3 +307,12 @@
 
 })();
 
+var addthis_share = addthis_share || {};
+addthis_share = {
+    passthrough : {
+        twitter: {
+            text: 'Find out more about undiscovered highlights in some of the best destinations in Europe'
+        }
+    }
+};
+
