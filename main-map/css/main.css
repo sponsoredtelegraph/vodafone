@@ -79,7 +79,7 @@ a, a:focus {
   /* IE9 Compat Modes */
   src: url("../fonts/GothamNarrow-Book.eot?#iefix") format("embedded-opentype"), url("../fonts/GothamNarrow-Book.woff") format("woff"), url("../fonts/GothamNarrow-Book.svg#GothamNarrow-Book") format("svg"), url("../fonts/GothamNarrow-Book.ttf") format("truetype");
   /* Safari, Android, iOS */ }
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (min-width: 320px) and (max-width: 730px) {
   #map {
     display: none; }
 
@@ -267,6 +267,8 @@ a, a:focus {
     margin-top: 10px; }
     .addthis_sharing_toolbox .at-share-btn {
       max-width: 3pc !important; }
+      .addthis_sharing_toolbox .at-share-btn :hover {
+        transform: none !important; }
     .addthis_sharing_toolbox .at-icon-wrapper {
       background-color: #FFFFFF !important;
       height: 36px !important;
@@ -291,7 +293,7 @@ body {
 .mapbox-logo {
   display: none !important; }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 731px) {
   .leaflet-clickable {
     stroke: #9ba1a5;
     stroke-width: 1;
@@ -319,8 +321,7 @@ body {
     .destinations__description {
       color: #FFFFFF;
       background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4wLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL1RSLzIwMDEvUkVDLVNWRy0yMDAxMDkwNC9EVEQvc3ZnMTAuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4wIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSI4NjBweCIgaGVpZ2h0PSIyN3B4IiB2aWV3Qm94PSIwIDAgODYwIDI3IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4NjAgMjciIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik00MjAuNTYxLDEzLjk3bC0wLjI2LDAuNDR2NS42OGgtMi4zMlY3Ljc1aDIuMzJ2NC40MmwyLjI0LTQuNDJoMS41NmwtMi4yNiwzLjk0bDIuNjYsOC40aC0yLjQ4DQoJCQlMNDIwLjU2MSwxMy45N3oiLz4NCgkJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTQyNy43OCwyMC4wOVY3Ljc1aDUuMTJ2MS4yOGgtMi44djQuMDgxaDEuOXYxLjNoLTEuOXY0LjQyaDIuOHYxLjI2SDQyNy43OHoiLz4NCgkJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTQzOS44NTksMTMuNTFsMi4wNC01Ljc2aDEuMzZsLTIuNzIsNy40NHY0Ljg5OWgtMi4zMnYtNC42bC0yLjY2LTcuNzRoMi4zOEw0MzkuODU5LDEzLjUxeiIvPg0KCTwvZz4NCgk8cmVjdCB4PSI1LjUiIHk9IjEzLjEwMyIgZmlsbD0iIzg4ODQ4NCIgd2lkdGg9IjQwMS4zMjgiIGhlaWdodD0iMS4zMDEiLz4NCgk8cmVjdCB4PSI0NTMuMTcyIiB5PSIxMy4xMDMiIGZpbGw9IiM4ODg0ODQiIHdpZHRoPSI0MDEuMzI4IiBoZWlnaHQ9IjEuMzAxIi8+DQo8L2c+DQo8L3N2Zz4NCg==") no-repeat;
-      background-position-x: 50%;
-      background-position-y: 100%;
+      background-position: 50% 100%;
       border-top: 1px solid #888384;
       padding: 1em 0 2.5em;
       font-family: GothamNarrowBook, Arial;
@@ -615,6 +616,8 @@ body {
     margin-top: 5px; }
     .addthis_sharing_toolbox .at-share-btn {
       max-width: 3pc !important; }
+      .addthis_sharing_toolbox .at-share-btn :hover {
+        transform: none !important; }
     .addthis_sharing_toolbox .at-icon-wrapper {
       background-color: #FFFFFF !important;
       height: 26px !important;

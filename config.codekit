@@ -66,6 +66,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/main-map\/images\/vodafone_social_media_img.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 301168,
+		"inputAbbreviatedPath": "\/main-map\/images\/vodafone_social_media_img.jpg",
+		"outputAbbreviatedPath": "\/main-map\/images\/vodafone_social_media_img.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/main-map\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,

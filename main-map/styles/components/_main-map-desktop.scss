@@ -2,7 +2,7 @@ body { margin:0; padding:0; }
 #map { position:absolute; top:0; bottom:0; width:100%; }
 .mapbox-logo {display: none !important;}
 
-@include media(min-width 769px, 12) {
+@include media(min-width 731px, 12) {
 
     .leaflet-clickable {
         stroke: #9ba1a5;
@@ -35,8 +35,7 @@ body { margin:0; padding:0; }
         &__description {
             color: $color-white;
             background: url($uri-key) no-repeat;
-            background-position-x: 50%;
-            background-position-y: 100%;
+            background-position: 50% 100%;
             border-top: 1px solid #888384;
             padding: em($global-padding) 0 em( 2.5 * $global-padding);
             font-family: GothamNarrowBook, Arial;
@@ -440,6 +439,10 @@ body { margin:0; padding:0; }
 
         .at-share-btn {
             max-width: 3pc !important;
+
+            :hover {
+                transform: none !important;
+            }
         }
 
         .at-icon-wrapper {

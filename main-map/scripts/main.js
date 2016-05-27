@@ -116,7 +116,7 @@
 
                 var secondaryMarkerHtml = vdfMap.template.secondary.marker({
                     country: feature.properties.sr_subunit,
-                    link: feature.properties.href
+                    link: feature.properties.content.href
                 });
 
                 return secondaryMarkerHtml;
@@ -167,14 +167,15 @@
                 } else if (feature.properties.destination === 'secondary'){
 
                     //populate the mobile version
-                    $(vdfMap.selector.list.main).append(vdfMap.template.secondary.listItem({
+                    $(vdfMap.selector.list.secondary).append(vdfMap.template.secondary.listItem({
                         country: feature.properties.sr_subunit,
                         link: feature.properties.content.href
                     }));
 
+
                     marker.bindPopup(vdfMap.template.secondary.hover({
                         country: feature.properties.sr_subunit,
-                        link: feature.properties.href
+                        link: feature.properties.content.href
                     }));
 
                     marker._icon.src = vdfMap.svg.dot;

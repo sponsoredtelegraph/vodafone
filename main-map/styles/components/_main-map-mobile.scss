@@ -1,4 +1,4 @@
-@include media(min-width 320px max-width 768px, 4) {
+@include media(min-width 320px max-width 730px, 4) {
     #map {
         display: none;
     }
@@ -247,6 +247,9 @@
 
         .at-share-btn {
             max-width: 3pc !important;
+            :hover {
+                transform: none !important;
+            }
         }
 
         .at-icon-wrapper {
