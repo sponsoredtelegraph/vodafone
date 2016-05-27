@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<h1 id="mainmap">Main Map</h1>
+
+<p>Main map is built on <a href="https://www.mapbox.com/mapbox.js/api/v2.4.0/">mapbox.js</a>
+and is using <a href="http://underscorejs.org/#template">underscore.js</a> for templating the marker&#8217;s mark-up</p>
+
+<h1 id="data">Data</h1>
+
+<p>Destinations
+Adding a new destination can be don through destinations.geo.json There are two types of destinations: main and secondary. They can be flagged as follows:</p>
+
+<pre><code class="js">
+    //...
+
+    {
+        &quot;type&quot;: &quot;Feature&quot;,
+        &quot;properties&quot;: {
+            &quot;sr_subunit&quot;: &quot;Holland&quot;, //country name
+            &quot;sr_brk_a3&quot;: &quot;NLX&quot;,
+            &quot;sr_adm0_a3&quot;: &quot;NLD&quot;, // ISO3 Country code
+            &quot;scalerank&quot;: 0,
+            &quot;destination&quot;: &quot;main&quot;, // this flag will render a main marker
+            &quot;content&quot; : {
+                &quot;copy&quot;: &quot;An art lover`s dream&quot;,  // Article Title
+                &quot;href&quot;: &quot;http://www.telegraph.co // Link.uk/travel/untapped-destinations/holland-for-art-lovers/?WT.mc_id=tmgspk_beeos_1375_AmBBkg0lQym3&amp;utm_source=tmgspk&amp;utm_medium=beeos&amp;utm_content=1375&amp;utm_campaign=tmgspk_beeos_1375_AmBBkg0lQym3&quot;
+            }
+        },
+        &quot;geometry&quot;: {
+            &quot;type&quot;: &quot;Point&quot;,
+            &quot;coordinates&quot;: [
+                6.4762915,
+                53.1357115
+            ]
+        }
+    },
+    
+    //...
+
+     {
+        &quot;type&quot;: &quot;Feature&quot;,
+        &quot;properties&quot;: {
+            &quot;sr_subunit&quot;: &quot;Monaco&quot;,
+            &quot;sr_brk_a3&quot;: &quot;MCO&quot;,
+            &quot;sr_adm0_a3&quot;: &quot;MCO&quot;,
+            &quot;scalerank&quot;: 0,
+            &quot;destination&quot;: &quot;secondary&quot;, // this flag will render a secondary marker
+            &quot;content&quot; : {
+                &quot;copy&quot;: &quot;Lorem Ipsum&quot;,
+                &quot;href&quot;: &quot;http://www.telegraph.co.uk/travel/untapped-destinations/monaco-in-style/?WT.mc_id=tmgspk_beeos_1375_AmBCHrjL5ZFM&amp;utm_source=tmgspk&amp;utm_medium=beeos&amp;utm_content=1375&amp;utm_campaign=tmgspk_beeos_1375_AmBCHrjL5ZFM&quot;
+            }
+    
+        },
+        &quot;geometry&quot;: {
+            &quot;type&quot;: &quot;Point&quot;,
+            &quot;coordinates&quot;: [
+                7.398448957853304,
+                43.74614075179443
+            ]
+        }
+    },
+
+</code></pre>
+
+<p>Red coverage layer comes from data/coverage.geo.json - if new areas need to be displayed on the map here&#8217;s where they can be added to. </p>
+
+</body>
+</html>
